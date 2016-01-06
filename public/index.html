@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+ <title>Todo API Practice</title>
+ <meta charset="utf-8" />
+ <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+ <!--jQuery & Bootstrap-->
+ <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+ <!--javascript-->
+
+ <script src="./js/todoManager.js"></script>
+
+ <!--CSS-->
+
+ <link rel="stylesheet" type="text/css" href="./css/todoStyles.css">
+
+ 
+ 
+</head>
+
+<body>
+
+	<div class="container">
+
+		<div class="row">
+
+			<div id="heading" class="col-md-6 col-md-offset-3 center">
+
+				<div id="pageIntro">
+					<h1 class="middle">Todo Application</h1>
+					<p class="lead center marginTop">Keep track of your life here with the Todo App</p>
+				</div>
+
+				<div class="form-group">
+
+					<input type="text" class="form-control marginTop" name="id" id="todoId" placeholder="Get Todo By ID">
+
+				</div>
+
+
+				<button id="getTodos" class="btn btn-primary btn-lg marginTop">Get All Todos</button>
+
+				<button id="getById" class="btn btn-primary btn-lg marginTop">Get Todo by ID</button>
+
+					<div id="success" class="alert alert-info marginTop"></div>
+
+					<div id="failure" class="alert alert-danger marginTop">Could not fetch todos</div>
+
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>
