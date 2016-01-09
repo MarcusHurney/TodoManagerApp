@@ -1,20 +1,12 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+
 var app = express();
 var PORT = process.env.PORT || 3000;
-var todos = [{
-	id: 1,
-	description: 'Meet mom for lunch',
-	completed: false
-}, {
-	id: 2,
-	description: 'Go to market',
-	completed: false
+var todos = [];
+var todoNextId = 1;
 
- }, {
- 	id: 3,
- 	description: 'Feed junior',
- 	completed: false
- }];
+app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
 
@@ -55,6 +47,19 @@ app.get('/todos/custom', function (req, res) {
 		res.json('No todo with that id');
 
 	}
+
+});
+
+// POST /todos
+app.post('/todos', function (req, res) {
+	
+	var body = req.body;
+
+	body.id = todoNextId++; //Adds id property to the new todo object and increments id.
+
+	todos.push(body); //Pushes new todo object into the todos array.
+
+	res.json(body); //This is returning an empty object
 
 });
 

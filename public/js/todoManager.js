@@ -21,7 +21,7 @@ $(document).ready(function() {
 					
 					todos.forEach(function (todo) {
 
-						$("#success").append('<ul><li>'+ todo.description + '</li></ul>');
+						$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
 
 					});
 
@@ -41,17 +41,42 @@ $(document).ready(function() {
 
 				if (todo == "") {
 
+						$('#todoId').val("");
 						$("#failure").fadeIn();
-
+						
 					} else {
 
+						$('#todoId').val("");
 						$('#success').fadeIn();
 						$('#success').html("");
-						$("#success").append('<ul><li>'+ todo.description + '</li></ul>');
+						$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
 
 					}
 
 			});
 
-	});
+	    });
+
+
+		$('#addTodo').click(function (event) {
+
+			$('#success').hide();
+		    $('#failure').hide();
+
+		    $description = $('#todoDescription').val();
+
+		    $.ajax({
+		    	method: 'post',
+		    	url: '/todos',
+		    	data: JSON.stringify({description: $description, completed: false}),
+		    	dataType: 'json',
+		    	contentType: 'application/json'
+		    }).done(function(data) {
+		    	$('#todoDescription').val("");
+		    	alert(JSON.stringify(data.description));
+		    });
+
+	    });
+
+
 });
