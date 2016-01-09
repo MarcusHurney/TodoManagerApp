@@ -78,5 +78,25 @@ $(document).ready(function() {
 
 	    });
 
+	    $('#deleteTodo').click(function (event) {
+
+	    	$('#success').hide();
+		    $('#failure').hide();
+
+		    $itemToDelete = $('#deleteById').val();
+
+		    $.ajax({
+		    	method: 'delete',
+		    	url: '/todos/delete?id=' + $itemToDelete
+		    }).done(function(data) {
+		    	$('#deleteById').val("");
+		    	alert(JSON.stringify(data));
+		    }).fail(function(data) {
+		    	$('#deleteById').val("");
+		    	$('#failure').fadeIn();
+		    });
+
+	    });
+
 
 });
