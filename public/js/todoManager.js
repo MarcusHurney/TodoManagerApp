@@ -73,7 +73,7 @@ $(document).ready(function() {
 		    	contentType: 'application/json'
 		    }).done(function(data) {
 		    	$('#todoDescription').val("");
-		    	alert(JSON.stringify(data.description));
+		    	alert(JSON.stringify(data));
 		    });
 
 	    });
