@@ -24,22 +24,38 @@ app.get('/todos', function (req, res) {
 	res.json(todos);
 });
 
-// GET/todos/:id -- Gets a todo by id
+// GET/todos/custom -- Gets a todo by id
 
 app.get('/todos/custom', function (req, res) {
 
-	var todoId = parseInt(req.query.id, 10);
-	var matchedTodo = _.findWhere(todos, {id: todoId});
+	var filteredTodos = todos;
 
-	if (matchedTodo) {
+	if (req.query.hasOwnProperty('id')) {
 
-		res.json(matchedTodo);
+		var todoId = parseInt(req.query.id, 10);
+		filteredTodos = _.findWhere(todos, {id: todoId});
 
-	} else {
+		if (!filteredTodos) {
 
-		res.json('No todo with that id');
+			res.status(404).json({"error": "No todo with that id"});
 
+		} else {
+
+			res.json(filteredTodos);
+
+		}
+
+	} else if (req.query.hasOwnProperty('completed') && req.query.completed === 'true') {
+
+		filteredTodos = _.where(filteredTodos, {completed: true}); //must add front-end code for buttons true and false
+
+	} else if (req.query.hasOwnProperty('completed') && req.query.completed === 'false') {
+
+		filteredTodos = _.where(filteredTodos, {completed: false});
+		
 	}
+
+	res.json(filteredTodos);
 
 });
 
@@ -58,7 +74,8 @@ app.post('/todos', function (req, res) {
 
 	todos.push(body); //Pushes new todo object into the todos array.
 
-	res.json(body); //Sends the body back to the front-end.
+	res.json(JSON.stringify(body)); //Sends the body back to the front-end.
+	
 
 });
 
@@ -74,11 +91,49 @@ app.delete('/todos/delete', function (req, res) {
 	} else {
 
 		todos = _.without(todos, matchedTodo);
-		res.json(matchedTodo);
+		res.json(JSON.stringify(matchedTodo));
 		
 	}
 
 	
+});
+
+app.put('/todos/update', function (req, res) {
+
+	var todoId = parseInt(req.query.id, 10);
+	var matchedTodo = _.findWhere(todos, {id: todoId});
+
+	var body = _.pick(req.body, 'description', 'completed');
+	var validAttributes = {};
+
+	if (!matchedTodo) {
+		return res.status(404).send();
+	}
+
+
+	if (body.hasOwnProperty('completed') && _.isBoolean(body.completed)) {
+
+		validAttributes.completed = body.completed;
+
+	} else if (body.hasOwnProperty('completed')) {
+
+		return res.status().send();
+
+	} // Validates completed property
+
+	if (body.hasOwnProperty('description') && _.isString(body.description) && body.description.trim().length > 0) {
+
+		validAttributes.description = body.description;
+
+	} else if (body.hasOwnProperty('description')) {
+
+		return res.status(400).send();
+
+	} // Validates description property
+
+	_.extend(matchedTodo, validAttributes); //Takes the properties from validAttributes and sets them to the matchedTodo
+	res.json(JSON.stringify(matchedTodo)); //Returns updated todo item to the front-end.
+
 });
 
 

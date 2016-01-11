@@ -1,12 +1,17 @@
 $(document).ready(function() {
 
-	$('#success').hide();
-	$('#failure').hide();
+	function hideAlerts() {
+
+		$('#success').hide();
+		$('#failure').hide();
+
+	}; //DRY - Hides alert divs.
+
+	hideAlerts();
 
 	$('#getTodos').click(function (event) {
 
-		$('#success').hide();
-	    $('#failure').hide();
+		hideAlerts();
 
 		$.get('/todos', function (todos) {
 
@@ -30,38 +35,88 @@ $(document).ready(function() {
 		});
 	});
 
+		//GET by ID
+
 		$('#getById').click(function (event) {
 
-			$('#success').hide();
-		    $('#failure').hide();
+			hideAlerts();
 
 		    $id = $('#todoId').val();
 
-			$.get('/todos/custom?id=' + $id, function (todo) {
+			$.get('/todos/custom?id=' + $id, function () {
 
-				if (todo == "") {
-
-						$('#todoId').val("");
-						$("#failure").fadeIn();
-						
-					} else {
-
-						$('#todoId').val("");
-						$('#success').fadeIn();
-						$('#success').html("");
-						$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
-
-					}
-
+			}).done(function (todo) {
+				$('#todoId').val("");
+				$('#success').fadeIn();
+				$('#success').html("");
+				$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+			}).fail(function (data) {
+				$('#todoId').val("");
+				$("#failure").fadeIn();
 			});
+
+	    });
+
+	    //GET Completed Todos
+
+	    $('#getCompleted').click(function (event) {
+
+	    	hideAlerts();
+
+	    	$.get('/todos/custom?completed=true', function () {
+
+	    	}).done(function (todos) {
+
+	    		$('#success').fadeIn();
+				$('#success').html("");
+
+	    		todos.forEach(function (todo) {
+
+	    			$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+
+	    		});
+
+	    	}).fail(function (data) {
+
+	    		$("#failure").fadeIn();
+
+	    	});
+	    	
+	    });
+
+	    //GET Incomplete Todos
+
+	    $('#getIncomplete').click(function (event) {
+
+	    	hideAlerts();
+
+	    	$.get('/todos/custom?completed=false', function () {
+
+	    	}).done(function (todos) {
+
+
+	    		$('#success').fadeIn();
+				$('#success').html("");
+
+				todos.forEach(function (todo) {
+
+					$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+
+				});
+
+	    	}).fail(function (data) {
+
+	    		$("#failure").fadeIn();
+
+	    	});
+
 
 	    });
 
 
 		$('#addTodo').click(function (event) {
 
-			$('#success').hide();
-		    $('#failure').hide();
+			hideAlerts();
 
 		    $description = $('#todoDescription').val();
 
@@ -73,15 +128,14 @@ $(document).ready(function() {
 		    	contentType: 'application/json'
 		    }).done(function(data) {
 		    	$('#todoDescription').val("");
-		    	alert(JSON.stringify(data));
+		    	alert(data);
 		    });
 
 	    });
 
 	    $('#deleteTodo').click(function (event) {
 
-	    	$('#success').hide();
-		    $('#failure').hide();
+	    	hideAlerts();
 
 		    $itemToDelete = $('#deleteById').val();
 
@@ -90,9 +144,61 @@ $(document).ready(function() {
 		    	url: '/todos/delete?id=' + $itemToDelete
 		    }).done(function(data) {
 		    	$('#deleteById').val("");
-		    	alert(JSON.stringify(data));
+		    	alert(data);
 		    }).fail(function(data) {
 		    	$('#deleteById').val("");
+		    	$('#failure').fadeIn();
+		    });
+
+	    });
+
+	    $('#updateTodo').click(function (event) {
+
+	    	hideAlerts();
+
+		    var completedStatus;
+		    var descriptionContent;
+
+		    var editedTodo = {};
+
+		    if ($('#updateStatus').val().toLowerCase() === 'true') {
+
+		    	completedStatus = true;
+		    	editedTodo.completed = completedStatus;
+
+		    } else if ($('#updateStatus').val().toLowerCase() === 'false') {
+
+		    	completedStatus = false;
+		    	editedTodo.completed = completedStatus;
+
+		    } else if ($('#updateDescription').val().trim() !== "") {
+
+		    	editedTodo.description = $('#updateDescription').val().trim();
+
+		    }
+
+      
+
+		    $.ajax({
+		    	method: 'put',
+		    	url: '/todos/update?id=' + $('#updateTodoById').val(),
+		    	data: JSON.stringify(editedTodo),
+		    	dataType: 'json',
+		    	contentType: 'application/json'
+		    }).done(function(data) {
+
+		    	$('#updateTodoById').val("");
+		    	$('#updateDescription').val("");
+		    	$('#updateStatus').val("");
+
+		    	alert(data);
+
+		    }).fail(function(data) {
+
+		    	$('#updateTodoById').val("");
+		    	$('#updateDescription').val("");
+		    	$('#updateStatus').val("");
+
 		    	$('#failure').fadeIn();
 		    });
 

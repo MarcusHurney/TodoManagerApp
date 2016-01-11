@@ -49,17 +49,33 @@
 				</div>
 
 
-				<button id="getTodos" class="btn btn-primary btn-lg marginTop">Get All Todos</button>
+				<button id="getTodos" class="btn btn-primary btn-md marginTop">Get All Todos</button>
 
-				<button id="getById" class="btn btn-primary btn-lg marginTop">Get Todo by ID</button>
+				<button id="getById" class="btn btn-primary btn-md marginTop">Get Todo by ID</button>
 
-				<button id="addTodo" class="btn btn-primary btn-lg marginTop">Add New Todo Item</button>
+				<button id="addTodo" class="btn btn-primary btn-md marginTop">Add New Todo Item</button>
 
-				<button id="deleteTodo" class="btn btn-primary btn-lg marginTop">Delete Todo by ID</button>
+				<button id="deleteTodo" class="btn btn-primary btn-md marginTop">Delete Todo by ID</button>
+
+				<button id="getCompleted" class="btn btn-default btn-md marginTop">Get Completed Todos</button>
+
+				<button id="getIncomplete" class="btn btn-default btn-md marginTop">Get Incomplete Todos</button>
 
 					<div id="success" class="alert alert-info marginTop"></div>
 
 					<div id="failure" class="alert alert-danger marginTop">Could not fetch todos</div>
+
+				<div class="form-group">
+
+					<input type="text" class="form-control marginTop" name="updateTodoById" id="updateTodoById" placeholder="Enter todo item's ID that you want to update">
+
+					<input type="text" class="form-control marginTop" name="updateDescription" id="updateDescription" placeholder="Update description here">
+
+					<input type="text" class="form-control marginTop" name="updateStatus" id="updateStatus" placeholder="Update completed status here">
+
+					<button id="updateTodo" class="btn btn-primary btn-md marginTop">Update Todo</button>
+
+				</div>
 
 
 			</div>
