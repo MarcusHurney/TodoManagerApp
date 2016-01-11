@@ -47,12 +47,17 @@ app.get('/todos/custom', function (req, res) {
 
 	} else if (req.query.hasOwnProperty('completed') && req.query.completed === 'true') {
 
-		filteredTodos = _.where(filteredTodos, {completed: true}); //must add front-end code for buttons true and false
+		filteredTodos = _.where(filteredTodos, {completed: true}); 
 
 	} else if (req.query.hasOwnProperty('completed') && req.query.completed === 'false') {
 
 		filteredTodos = _.where(filteredTodos, {completed: false});
 		
+	} else if (req.query.hasOwnProperty('q') && req.query.q.trim().length > 0) {
+
+		filteredTodos = _.filter(filteredTodos, function (todo) {
+			return todo.description.toLowerCase().indexOf(req.query.q.toLowerCase()) > -1; //Returns any todo item whose description contains the request query (string) contained in q. Since _.filter returns an array of these items, if their index is > -1, they exist.
+		});
 	}
 
 	res.json(filteredTodos);

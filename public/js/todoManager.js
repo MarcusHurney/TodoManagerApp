@@ -81,7 +81,7 @@ $(document).ready(function() {
 	    		$("#failure").fadeIn();
 
 	    	});
-	    	
+
 	    });
 
 	    //GET Incomplete Todos
@@ -110,6 +110,35 @@ $(document).ready(function() {
 
 	    	});
 
+
+	    });
+
+	    //GET Todos by Description
+
+	    $('#searchByDescription').click(function (event) {
+
+	    	hideAlerts();
+
+	    	$.get('/todos/custom?q=' + $('#enterDescription').val(), function () {
+
+	    	}).done(function (todos) {
+
+	    		$('#enterDescription').val("");
+	    		$('#success').fadeIn();
+				$('#success').html("");
+
+				todos.forEach(function (todo) {
+
+					$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+
+				});
+
+	    	}).fail(function (data) {
+
+	    		$('#enterDescription').val("");
+	    		$("#failure").fadeIn();
+
+	    	});
 
 	    });
 
@@ -171,9 +200,12 @@ $(document).ready(function() {
 		    	completedStatus = false;
 		    	editedTodo.completed = completedStatus;
 
-		    } else if ($('#updateDescription').val().trim() !== "") {
+		    } 
 
-		    	editedTodo.description = $('#updateDescription').val().trim();
+		    if ($('#updateDescription').val().trim().length > 0) {
+
+		    	descriptionContent = $('#updateDescription').val().trim();
+		    	editedTodo.description = descriptionContent;
 
 		    }
 
