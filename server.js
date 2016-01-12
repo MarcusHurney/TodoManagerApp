@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
+var db = require('./db.js');
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -69,17 +70,25 @@ app.post('/todos', function (req, res) {
 	
 	var body = _.pick(req.body, 'description', 'completed'); //_.pick will check the req.body for any unwanted properties and only keep description and completed.
 
-	if (!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().length === 0) {
-		return res.status(400).send();
-	}
+	db.todo.create({
+		description: body.description
+	}).then(function (todo) {
+		res.status(200).json(JSON.stringify(todo));
+	}, function (e) {
+		res.status(400).json(e);
+	});
 
-	body.description = body.description.trim(); //Deletes any unecessary spaces at the beginning or end of the description.
+	// if (!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().length === 0) {
+	// 	return res.status(400).send();
+	// }
 
-	body.id = todoNextId++; //Adds id property to the new todo object and increments id.
+	// body.description = body.description.trim(); //Deletes any unecessary spaces at the beginning or end of the description.
 
-	todos.push(body); //Pushes new todo object into the todos array.
+	// body.id = todoNextId++; //Adds id property to the new todo object and increments id.
 
-	res.json(JSON.stringify(body)); //Sends the body back to the front-end.
+	// todos.push(body); //Pushes new todo object into the todos array.
+
+	// res.json(JSON.stringify(body)); //Sends the body back to the front-end.
 	
 
 });
@@ -141,7 +150,12 @@ app.put('/todos/update', function (req, res) {
 
 });
 
+// Sync with sequelize database using the imported db.js
 
-app.listen(PORT, function () {
-	console.log('Express listening on port ' + PORT + '!');
+db.sequelize.sync().then(function () {
+
+	app.listen(PORT, function () {
+		console.log('Express listening on port ' + PORT + '!');
+	});
+
 });
