@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 });
 
 
-// GET /todos -- Gets all todos
+// Gets all todos + todos with custom query such as search by completed status or description
 
 app.get('/todos', function (req, res) {
 
@@ -62,7 +62,7 @@ app.get('/todos', function (req, res) {
 
 });
 
-// GET/todos/custom/:id -- Gets a todo by id
+// Gets a todo by id
 
 app.get('/todos/:id', function (req, res) {
 
@@ -80,7 +80,7 @@ app.get('/todos/:id', function (req, res) {
 
 });
 
-// POST /todos
+// Adds a new todo item
 app.post('/todos', function (req, res) {
 	
 	var body = _.pick(req.body, 'description', 'completed'); //_.pick will check the req.body for any unwanted properties and only keep description and completed.
@@ -96,6 +96,7 @@ app.post('/todos', function (req, res) {
 
 });
 
+//Deletes a todo item
 app.delete('/todos/delete/:id', function (req, res) {
 
 	var todoId = parseInt(req.params.id, 10);
@@ -117,6 +118,7 @@ app.delete('/todos/delete/:id', function (req, res) {
 	});
 });
 
+//Updates a todo item
 app.put('/todos/update/:id', function (req, res) {
 
 	var todoId = parseInt(req.params.id, 10);
@@ -155,6 +157,21 @@ app.put('/todos/update/:id', function (req, res) {
 	});
 
 
+});
+
+// Adds user to the database
+
+app.post('/users', function (req, res) {
+	var body = _.pick(req.body, 'email', 'password'); // _.pick keeps only email and password queries
+	console.log(body);
+	db.user.create({
+		email: body.email,
+		password: body.password
+	}).then(function (user) {
+		res.status(200).json(user.toJSON());
+	}, function (e) {
+		res.status(400).send();
+	});
 });
 
 // Sync with sequelize database using the imported db.js

@@ -142,6 +142,7 @@ $(document).ready(function() {
 
 	    });
 
+	    //Add a new todo item
 
 		$('#addTodo').click(function (event) {
 
@@ -241,6 +242,31 @@ $(document).ready(function() {
 		    });
 
 	    });
+
+		$('#createNewUser').click(function (event) {
+
+			hideAlerts();
+
+			var $email = $('#newUserEmail').val();
+			var $password = $('#newUserPassword').val();
+
+			$.ajax({
+		    	method: 'post',
+		    	url: '/users',
+		    	data: JSON.stringify({email: $email, password: $password}),
+		    	dataType: 'json',
+		    	contentType: 'application/json'
+			}).done(function (user) {
+				$('#newUserEmail').val("");
+				$('#newUserPassword').val("");
+				alert(JSON.stringify(user));
+			}).fail(function (data) {
+				$('#newUserEmail').val("");
+				$('#newUserPassword').val("");
+				alert(JSON.stringify(data));
+			});
+
+		});
 
 
 });

@@ -1,6 +1,7 @@
 .marginTop {
 
 	margin-top: 20px;
+
 	
 }
 
@@ -11,6 +12,12 @@
 }
 
 #updateArea {
+
+	border-top: solid grey;	
+	
+}
+
+#userArea {
 
 	border-top: solid grey;	
 	
