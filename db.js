@@ -1,9 +1,19 @@
 var Sequelize = require('sequelize');
+var env = process.env.NODE_ENV || 'development';
+var sequelize;
 
-var sequelize = new Sequelize(undefined, undefined, undefined, {
-	'dialect': 'sqlite',
-	'storage': __dirname + '/data/practice-todo-api.sqlite'
-});
+if (env === 'production') {
+	sequelize = new Sequelize(process.env.DATABASE_URL, {
+		dialect: 'postgres'
+	}); // This if statement should execute if the app is run on Heroku
+} else {
+	sequelize = new Sequelize(undefined, undefined, undefined, {
+	    'dialect': 'sqlite',
+	    'storage': __dirname + '/data/practice-todo-api.sqlite'
+    });
+}
+
+
 
 var db = {};
 
