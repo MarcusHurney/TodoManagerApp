@@ -219,7 +219,7 @@ $(document).ready(function() {
 
 		    $.ajax({
 		    	method: 'put',
-		    	url: '/todos/update?id=' + $('#updateTodoById').val(),
+		    	url: '/todos/update/' + $('#updateTodoById').val(),
 		    	data: JSON.stringify(editedTodo),
 		    	dataType: 'json',
 		    	contentType: 'application/json'

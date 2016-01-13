@@ -117,41 +117,43 @@ app.delete('/todos/delete/:id', function (req, res) {
 	});
 });
 
-app.put('/todos/update', function (req, res) {
+app.put('/todos/update/:id', function (req, res) {
 
-	var todoId = parseInt(req.query.id, 10);
-	var matchedTodo = _.findWhere(todos, {id: todoId});
+	var todoId = parseInt(req.params.id, 10);
+	
 
 	var body = _.pick(req.body, 'description', 'completed');
-	var validAttributes = {};
+	var attributes = {};
 
-	if (!matchedTodo) {
-		return res.status(404).send();
+
+	if (body.hasOwnProperty('completed')) {
+
+		attributes.completed = body.completed;
+
+	} 
+
+	if (body.hasOwnProperty('description')) {
+
+		attributes.description = body.description;
+
 	}
 
+	db.todo.findById(todoId).then(function (todo) {
+		if (todo) {
 
-	if (body.hasOwnProperty('completed') && _.isBoolean(body.completed)) {
+			todo.update(attributes).then(function () {
+				res.json(todo.toJSON());
+			}, function (e) {
+			res.status(400).json(e);
+		}); 
 
-		validAttributes.completed = body.completed;
+		} else {
+			res.status(404).send();
+		}
+	}, function () {
+		res.status(500).send();
+	});
 
-	} else if (body.hasOwnProperty('completed')) {
-
-		return res.status().send();
-
-	} // Validates completed property
-
-	if (body.hasOwnProperty('description') && _.isString(body.description) && body.description.trim().length > 0) {
-
-		validAttributes.description = body.description;
-
-	} else if (body.hasOwnProperty('description')) {
-
-		return res.status(400).send();
-
-	} // Validates description property
-
-	_.extend(matchedTodo, validAttributes); //Takes the properties from validAttributes and sets them to the matchedTodo
-	res.json(JSON.stringify(matchedTodo)); //Returns updated todo item to the front-end.
 
 });
 
