@@ -22,46 +22,61 @@ app.get('/', function (req, res) {
 // GET /todos -- Gets all todos
 
 app.get('/todos', function (req, res) {
-	res.json(todos);
-});
 
-// GET/todos/custom -- Gets a todo by id
+	var query = req.query;
+	var where = {};
 
-app.get('/todos/custom', function (req, res) {
+	if (query.hasOwnProperty('completed') && query.completed === 'true') {
 
-	var filteredTodos = todos;
+		where.completed = true;
 
-	if (req.query.hasOwnProperty('id')) {
+	} else if (query.hasOwnProperty('completed') && query.completed === 'false') {
 
-		var todoId = parseInt(req.query.id, 10);
-		filteredTodos = _.findWhere(todos, {id: todoId});
+		where.completed = false;
 
-		if (!filteredTodos) {
+	} 
 
-			res.status(404).json({"error": "No todo with that id"});
+	if (query.hasOwnProperty('q') && query.q.trim().length > 0) {
 
-		} else {
+		where.description = {
+			$like: '%' + query.q + '%'
+		};
 
-			res.json(filteredTodos);
-
-		}
-
-	} else if (req.query.hasOwnProperty('completed') && req.query.completed === 'true') {
-
-		filteredTodos = _.where(filteredTodos, {completed: true}); 
-
-	} else if (req.query.hasOwnProperty('completed') && req.query.completed === 'false') {
-
-		filteredTodos = _.where(filteredTodos, {completed: false});
-		
-	} else if (req.query.hasOwnProperty('q') && req.query.q.trim().length > 0) {
-
-		filteredTodos = _.filter(filteredTodos, function (todo) {
-			return todo.description.toLowerCase().indexOf(req.query.q.toLowerCase()) > -1; //Returns any todo item whose description contains the request query (string) contained in q. Since _.filter returns an array of these items, if their index is > -1, they exist.
-		});
 	}
 
-	res.json(filteredTodos);
+	db.todo.findAll({
+
+		where: where
+
+	}).then(function (todos) {
+
+		res.json(todos);
+
+	}, function (e) {
+
+		res.status(500).send();
+
+	});
+
+
+
+});
+
+// GET/todos/custom/:id -- Gets a todo by id
+
+app.get('/todos/:id', function (req, res) {
+
+	var todoId = parseInt(req.params.id, 10);
+
+	db.todo.findById(todoId).then(function (todo) {
+		if (!!todo) {
+			res.json(todo.toJSON());
+		} else {
+			res.status(404).send();
+		}
+	}, function (e) {
+		res.status(500).send();
+	});
 
 });
 
@@ -77,18 +92,6 @@ app.post('/todos', function (req, res) {
 	}, function (e) {
 		res.status(400).json(e);
 	});
-
-	// if (!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().length === 0) {
-	// 	return res.status(400).send();
-	// }
-
-	// body.description = body.description.trim(); //Deletes any unecessary spaces at the beginning or end of the description.
-
-	// body.id = todoNextId++; //Adds id property to the new todo object and increments id.
-
-	// todos.push(body); //Pushes new todo object into the todos array.
-
-	// res.json(JSON.stringify(body)); //Sends the body back to the front-end.
 	
 
 });

@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 		    $id = $('#todoId').val();
 
-			$.get('/todos/custom?id=' + $id, function () {
+			$.get('/todos/' + $id, function () {
 
 			}).done(function (todo) {
 				$('#todoId').val("");
@@ -63,7 +63,7 @@ $(document).ready(function() {
 
 	    	hideAlerts();
 
-	    	$.get('/todos/custom?completed=true', function () {
+	    	$.get('/todos?completed=true', function () {
 
 	    	}).done(function (todos) {
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
 
 	    	hideAlerts();
 
-	    	$.get('/todos/custom?completed=false', function () {
+	    	$.get('/todos?completed=false', function () {
 
 	    	}).done(function (todos) {
 
@@ -119,7 +119,7 @@ $(document).ready(function() {
 
 	    	hideAlerts();
 
-	    	$.get('/todos/custom?q=' + $('#enterDescription').val(), function () {
+	    	$.get('/todos?q=' + $('#enterDescription').val(), function () {
 
 	    	}).done(function (todos) {
 
