@@ -162,6 +162,8 @@ $(document).ready(function() {
 
 	    });
 
+	    //DELTE Todo Item
+
 	    $('#deleteTodo').click(function (event) {
 
 	    	hideAlerts();
@@ -170,13 +172,17 @@ $(document).ready(function() {
 
 		    $.ajax({
 		    	method: 'delete',
-		    	url: '/todos/delete?id=' + $itemToDelete
-		    }).done(function(data) {
+		    	url: '/todos/delete/' + $itemToDelete
+		    }).done(function(deletedTodo) {
 		    	$('#deleteById').val("");
-		    	alert(data);
+		    	$('#success').html("");
+		    	$('#success').fadeIn();
+		    	$('#success').html("Todo item deleted!")
 		    }).fail(function(data) {
 		    	$('#deleteById').val("");
+		    	$('#failure').html("");
 		    	$('#failure').fadeIn();
+		    	$('#failure').html("No todo with that ID");
 		    });
 
 	    });
