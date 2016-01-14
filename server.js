@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var db = require('./db.js');
+var bcrypt = require('bcrypt');
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -163,20 +164,36 @@ app.put('/todos/update/:id', function (req, res) {
 
 app.post('/users', function (req, res) {
 	var body = _.pick(req.body, 'email', 'password'); // _.pick keeps only email and password queries
-	console.log(body);
+
 	db.user.create({
 		email: body.email,
 		password: body.password
 	}).then(function (user) {
-		res.status(200).json(user.toJSON());
+		res.status(200).json(user.toPublicJSON()); // toPublicJSON() is the custom instance method defined over in user.js, it returns only the specific attributes for the the new user, keeping some private.
 	}, function (e) {
 		res.status(400).send();
 	});
 });
 
+// POST /users/login -- Logs in a user
+
+app.post('/users/login', function (req, res) {
+
+	var body = _.pick(req.body, 'email', 'password');
+
+	db.user.authenticate(body).then(function (user) {
+		res.json(user.toPublicJSON());
+	}, function (e) {
+		res.status(401).send();
+	});
+
+});
+
+
+
 // Sync with sequelize database using the imported db.js
 
-db.sequelize.sync().then(function () {
+db.sequelize.sync({force:true}).then(function () {
 
 	app.listen(PORT, function () {
 		console.log('Express listening on port ' + PORT + '!');

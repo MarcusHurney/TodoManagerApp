@@ -268,5 +268,31 @@ $(document).ready(function() {
 
 		});
 
+		//Login User
+
+		$('#loginUser').click(function (event) {
+
+			hideAlerts();
+
+			var $loginEmail = $('#loginEmail').val();
+			var $loginPassword = $('#loginPassword').val();
+
+			$.ajax({
+				method: 'post',
+				url: '/users/login',
+				data: JSON.stringify({email: $loginEmail, password: $loginPassword}),
+				dataType: 'json',
+				contentType: 'application/json'
+			}).done(function (user) {
+				$('#loginEmail').val("");
+				$('#loginPassword').val("");
+				alert(JSON.stringify(user));
+			}).fail(function (data) {
+				$('#loginEmail').val("");
+				$('#loginPassword').val("");
+				alert(JSON.stringify(data));
+			});
+		});
+
 
 });
