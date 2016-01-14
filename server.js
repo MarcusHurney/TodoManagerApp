@@ -182,7 +182,14 @@ app.post('/users/login', function (req, res) {
 	var body = _.pick(req.body, 'email', 'password');
 
 	db.user.authenticate(body).then(function (user) {
-		res.json(user.toPublicJSON());
+		var token = user.generateToken('authentication');
+
+		if (token) {
+			res.header('Auth', token).json(user.toPublicJSON()); //header takes two values, the key and the value, --> Auth: the returned data from generateToken
+		} else {
+			res.status(401).send();
+		}
+		
 	}, function (e) {
 		res.status(401).send();
 	});
