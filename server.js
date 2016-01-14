@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var _ = require('underscore');
 var db = require('./db.js');
 var bcrypt = require('bcrypt');
+var middleware = require('./middleware.js')(db); // db specifies the database middleware.js will use
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -22,7 +23,7 @@ app.get('/', function (req, res) {
 
 // Gets all todos + todos with custom query such as search by completed status or description
 
-app.get('/todos', function (req, res) {
+app.get('/todos', middleware.requireAuthentication, function (req, res) {
 
 	var query = req.query;
 	var where = {};
@@ -65,7 +66,7 @@ app.get('/todos', function (req, res) {
 
 // Gets a todo by id
 
-app.get('/todos/:id', function (req, res) {
+app.get('/todos/:id', middleware.requireAuthentication, function (req, res) {
 
 	var todoId = parseInt(req.params.id, 10);
 
@@ -82,7 +83,7 @@ app.get('/todos/:id', function (req, res) {
 });
 
 // Adds a new todo item
-app.post('/todos', function (req, res) {
+app.post('/todos', middleware.requireAuthentication, function (req, res) {
 	
 	var body = _.pick(req.body, 'description', 'completed'); //_.pick will check the req.body for any unwanted properties and only keep description and completed.
 
@@ -98,7 +99,7 @@ app.post('/todos', function (req, res) {
 });
 
 //Deletes a todo item
-app.delete('/todos/delete/:id', function (req, res) {
+app.delete('/todos/delete/:id', middleware.requireAuthentication, function (req, res) {
 
 	var todoId = parseInt(req.params.id, 10);
 
@@ -120,7 +121,7 @@ app.delete('/todos/delete/:id', function (req, res) {
 });
 
 //Updates a todo item
-app.put('/todos/update/:id', function (req, res) {
+app.put('/todos/update/:id', middleware.requireAuthentication, function (req, res) {
 
 	var todoId = parseInt(req.params.id, 10);
 	
@@ -160,7 +161,7 @@ app.put('/todos/update/:id', function (req, res) {
 
 });
 
-// Adds user to the database
+// Adds user to the database, doesn't require middleware.requireAuthentication because you are adding a new user.
 
 app.post('/users', function (req, res) {
 	var body = _.pick(req.body, 'email', 'password'); // _.pick keeps only email and password queries
@@ -175,7 +176,7 @@ app.post('/users', function (req, res) {
 	});
 });
 
-// POST /users/login -- Logs in a user
+// POST /users/login -- Logs in a user, doesn't require middleware.requireAuthentication because you are adding a new user.
 
 app.post('/users/login', function (req, res) {
 

@@ -70,6 +70,27 @@ module.exports = function (sequelize, Datatypes) {
 					});
 
 				});
+			},
+			findByToken: function (token) {
+				return new Promise(function (resolve, reject) {
+					try {
+						var decodedJWT = jwt.verify(token, 'qwerty098'); // decodedJWT now has the value of token in the generateToken instance method after jwt.verify verifies it hasn't been modified. 
+						var bytes = cryptojs.decrypt(decodedJWT.token, 'abc123'); // bytes now has the value of encryptedData because we are accessing the token property of the token variable (see generateToken method). That data contains user id and the type.
+						var tokenData = JSON.parse(bytes.toString(cryptojs.enc.Utf8)); //JSON.parse takes string JSON and turns it into a javascript object, in generateToken the var stringData was passed to JSON.stringify(), so it must be converted back to an object.
+
+					    user.findbyId(tokenData.id).then(function (user) { //Retrieves the user based on the id which was extracted from the decrypted token.
+					    	if (user) {
+					    		resolve(user);
+					    	} else {
+					    		reject();
+					    	}
+					    }, function (e) {
+					    	reject();
+					    })	
+					} catch (e) {
+
+					}
+				});
 			}
 		},
 		instanceMethods: {
