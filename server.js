@@ -90,7 +90,11 @@ app.post('/todos', middleware.requireAuthentication, function (req, res) {
 	db.todo.create({
 		description: body.description
 	}).then(function (todo) {
-		res.status(200).json(JSON.stringify(todo));
+		req.user.addTodo(todo).then(function () { //req.user is returned from middleware.requireAuthentication when a user is returned from db.user.findByToken
+			return todo.reload(); //Reloads the todo with the new userID association in the todo item.
+		}).then(function (todo) {
+			res.json(JSON.stringify(todo)); //Returns the todo to the front end.
+		});
 	}, function (e) {
 		res.status(400).json(e);
 	});
@@ -121,6 +125,7 @@ app.delete('/todos/delete/:id', middleware.requireAuthentication, function (req,
 });
 
 //Updates a todo item
+
 app.put('/todos/update/:id', middleware.requireAuthentication, function (req, res) {
 
 	var todoId = parseInt(req.params.id, 10);
@@ -144,9 +149,8 @@ app.put('/todos/update/:id', middleware.requireAuthentication, function (req, re
 
 	db.todo.findById(todoId).then(function (todo) {
 		if (todo) {
-
 			todo.update(attributes).then(function () {
-				res.json(todo.toJSON());
+				res.json(JSON.stringify(todo));
 			}, function (e) {
 			res.status(400).json(e);
 		}); 

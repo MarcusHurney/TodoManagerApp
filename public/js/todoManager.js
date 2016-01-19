@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+	$.ajaxSetup({
+
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Auth", localStorage.getItem('token'));
+		}
+
+	}); // Sets all headers to contain the user token.
+
 	function hideAlerts() {
 
 		$('#success').hide();
@@ -152,6 +160,7 @@ $(document).ready(function() {
 
 		    $.ajax({
 		    	method: 'post',
+		    	headers: {'Auth': localStorage.getItem('token')}, //Here
 		    	url: '/todos',
 		    	data: JSON.stringify({description: $description, completed: false}),
 		    	dataType: 'json',
@@ -173,7 +182,8 @@ $(document).ready(function() {
 
 		    $.ajax({
 		    	method: 'delete',
-		    	url: '/todos/delete/' + $itemToDelete
+		    	url: '/todos/delete/' + $itemToDelete,
+		    	headers: {'Auth': localStorage.getItem('token')}, //Here
 		    }).done(function(deletedTodo) {
 		    	$('#deleteById').val("");
 		    	$('#success').html("");
@@ -187,6 +197,8 @@ $(document).ready(function() {
 		    });
 
 	    });
+
+	    //Updates a todo item
 
 	    $('#updateTodo').click(function (event) {
 
@@ -221,6 +233,7 @@ $(document).ready(function() {
 		    $.ajax({
 		    	method: 'put',
 		    	url: '/todos/update/' + $('#updateTodoById').val(),
+		    	headers: {'Auth': localStorage.getItem('token')}, //Here
 		    	data: JSON.stringify(editedTodo),
 		    	dataType: 'json',
 		    	contentType: 'application/json'
@@ -242,6 +255,8 @@ $(document).ready(function() {
 		    });
 
 	    });
+
+		//Creates a new user
 
 		$('#createNewUser').click(function (event) {
 
@@ -283,9 +298,11 @@ $(document).ready(function() {
 				data: JSON.stringify({email: $loginEmail, password: $loginPassword}),
 				dataType: 'json',
 				contentType: 'application/json'
-			}).done(function (user) {
+			}).done(function (user, status, xhr) {
 				$('#loginEmail').val("");
 				$('#loginPassword').val("");
+				var token = xhr.getResponseHeader('Auth'); // Setting the value of token to the value of the header key 'Auth'
+				localStorage.setItem('token', token); // In local storage 'token' is set to the value of header's token ^, now it can be passed along with the other methods from the front-end.
 				alert(JSON.stringify(user));
 			}).fail(function (data) {
 				$('#loginEmail').val("");
