@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var _ = require('underscore');
 var db = require('./db.js');
 var bcrypt = require('bcrypt');
-var middleware = require('./middleware.js')(db); // db specifies the database middleware.js will use
+var middleware = require('./middleware.js')(db); // db specifies the database middleware.js will use, so it's passed as an argument
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -100,7 +100,7 @@ app.post('/todos', middleware.requireAuthentication, function (req, res) {
 		req.user.addTodo(todo).then(function () { //req.user is returned from middleware.requireAuthentication when a user is returned from db.user.findByToken
 			return todo.reload(); //Reloads the todo with the new userID association in the todo item.
 		}).then(function (todo) {
-			res.json(JSON.stringify(todo)); //Returns the todo to the front end.
+			res.json(todo); //Returns the todo to the front end.
 		});
 	}, function (e) {
 		res.status(400).json(e);
@@ -140,7 +140,7 @@ app.put('/todos/update/:id', middleware.requireAuthentication, function (req, re
 	
 
 	var body = _.pick(req.body, 'description', 'completed');
-	var attributes = {};
+	var attributes = {}; //attributes will contain the desired updates to the selected todo item
 
 
 	if (body.hasOwnProperty('completed')) {
@@ -162,7 +162,7 @@ app.put('/todos/update/:id', middleware.requireAuthentication, function (req, re
 		}
 	}).then(function (todo) {
 		if (todo) {
-			todo.update(attributes).then(function () {
+			todo.update(attributes).then(function () { //The selected todo item is updated with the attributes object
 				res.json(JSON.stringify(todo));
 			}, function (e) {
 			res.status(400).json(e);
@@ -198,20 +198,32 @@ app.post('/users', function (req, res) {
 app.post('/users/login', function (req, res) {
 
 	var body = _.pick(req.body, 'email', 'password');
+	var userInstance;
 
 	db.user.authenticate(body).then(function (user) {
 		var token = user.generateToken('authentication');
+		userInstance = user; //This user is the user model returned from user.authenticate
 
-		if (token) {
-			res.header('Auth', token).json(user.toPublicJSON()); //header takes two values, the key and the value, --> Auth: the returned data from generateToken
-		} else {
-			res.status(401).send();
-		}
+		return db.token.create({ //This token value will get turned into tokenHash and be saved in the database
+			token: token
+		});
 		
-	}, function (e) {
+	}).then(function (tokenInstance) { //tokenInstance is the value returned from db.token.create
+		res.header('Auth', tokenInstance.get('token')).json(userInstance.toPublicJSON());
+	}).catch(function (e) {
 		res.status(401).send();
 	});
 
+});
+
+// DELETE /users/login -- Logs a user out, by deleting the user's tokenHash from the database.
+
+app.delete('/users/login', middleware.requireAuthentication, function (req, res) {
+	req.token.destroy().then(function () { //This is why token was set on the req object, so that it can be deleted from the database
+		res.status(204).send();
+	}).catch(function () {
+		res.status(500).send();
+	});
 });
 
 
