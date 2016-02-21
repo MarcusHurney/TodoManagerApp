@@ -1,315 +1,338 @@
-$(document).ready(function() {
+// $(document).ready(function() {
 
-	$.ajaxSetup({
+// 	$.ajaxSetup({
 
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader("Auth", localStorage.getItem('token'));
-		}
+// 		beforeSend: function(xhr) {
+// 			xhr.setRequestHeader("Auth", localStorage.getItem('token'));
+// 		}
 
-	}); // Sets all headers to contain the user token.
+// 	}); // Sets all headers to contain the user token.
 
-	function hideAlerts() {
+// 	function hideAlerts() {
 
-		$('#success').hide();
-		$('#failure').hide();
+// 		$('#success').hide();
+// 		$('#failure').hide();
 
-	}; //DRY - Hides alert divs.
+// 	}; //DRY - Hides alert divs.
 
-	hideAlerts();
+// 	hideAlerts();
 
-	$('#getTodos').click(function (event) {
+// 	$('#getTodos').click(function (event) {
 
-		hideAlerts();
+// 		hideAlerts();
 
-		$.get('/todos', function (todos) {
+// 		$.get('/todos', function (todos) {
 
-			if (todos == "") {
+// 			if (todos == "") {
 
-					$("#failure").fadeIn();
+// 					$("#failure").fadeIn();
 
-				} else {
+// 				} else {
 
-					$('#success').html("");
-					$('#success').fadeIn();
+// 					$('#success').html("");
+// 					$('#success').fadeIn();
 					
-					todos.forEach(function (todo) {
+// 					todos.forEach(function (todo) {
 
-						$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+// 						$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
 
-					});
+// 					});
 
-				}
+// 				}
 
-		});
-	});
+// 		});
+// 	});
 
-		//GET by ID
+// 		//GET by ID
 
-		$('#getById').click(function (event) {
+// 		$('#getById').click(function (event) {
 
-			hideAlerts();
+// 			hideAlerts();
 
-		    $id = $('#todoId').val();
+// 		    $id = $('#todoId').val();
 
-			$.get('/todos/' + $id, function () {
+// 			$.get('/todos/' + $id, function () {
 
-			}).done(function (todo) {
-				$('#todoId').val("");
-				$('#success').fadeIn();
-				$('#success').html("");
-				$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
-			}).fail(function (data) {
-				$('#todoId').val("");
-				$("#failure").fadeIn();
-			});
+// 			}).done(function (todo) {
+// 				$('#todoId').val("");
+// 				$('#success').fadeIn();
+// 				$('#success').html("");
+// 				$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+// 			}).fail(function (data) {
+// 				$('#todoId').val("");
+// 				$("#failure").fadeIn();
+// 			});
 
-	    });
+// 	    });
 
-	    //GET Completed Todos
+// 	    //GET Completed Todos
 
-	    $('#getCompleted').click(function (event) {
+// 	    $('#getCompleted').click(function (event) {
 
-	    	hideAlerts();
+// 	    	hideAlerts();
 
-	    	$.get('/todos?completed=true', function () {
+// 	    	$.get('/todos?completed=true', function () {
 
-	    	}).done(function (todos) {
+// 	    	}).done(function (todos) {
 
-	    		$('#success').fadeIn();
-				$('#success').html("");
+// 	    		$('#success').fadeIn();
+// 				$('#success').html("");
 
-	    		todos.forEach(function (todo) {
+// 	    		todos.forEach(function (todo) {
 
-	    			$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+// 	    			$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
 
-	    		});
+// 	    		});
 
-	    	}).fail(function (data) {
+// 	    	}).fail(function (data) {
 
-	    		$("#failure").fadeIn();
+// 	    		$("#failure").fadeIn();
 
-	    	});
+// 	    	});
 
-	    });
+// 	    });
 
-	    //GET Incomplete Todos
+// 	    //GET Incomplete Todos
 
-	    $('#getIncomplete').click(function (event) {
+// 	    $('#getIncomplete').click(function (event) {
 
-	    	hideAlerts();
+// 	    	hideAlerts();
 
-	    	$.get('/todos?completed=false', function () {
+// 	    	$.get('/todos?completed=false', function () {
 
-	    	}).done(function (todos) {
+// 	    	}).done(function (todos) {
 
 
-	    		$('#success').fadeIn();
-				$('#success').html("");
+// 	    		$('#success').fadeIn();
+// 				$('#success').html("");
 
-				todos.forEach(function (todo) {
+// 				todos.forEach(function (todo) {
 
-					$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+// 					$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
 
-				});
+// 				});
 
-	    	}).fail(function (data) {
+// 	    	}).fail(function (data) {
 
-	    		$("#failure").fadeIn();
+// 	    		$("#failure").fadeIn();
 
-	    	});
+// 	    	});
 
 
-	    });
+// 	    });
 
-	    //GET Todos by Description
+// 	    //GET Todos by Description
 
-	    $('#searchByDescription').click(function (event) {
+// 	    $('#searchByDescription').click(function (event) {
 
-	    	hideAlerts();
+// 	    	hideAlerts();
 
-	    	$.get('/todos?q=' + $('#enterDescription').val(), function () {
+// 	    	$.get('/todos?q=' + $('#enterDescription').val(), function () {
 
-	    	}).done(function (todos) {
+// 	    	}).done(function (todos) {
 
-	    		$('#enterDescription').val("");
-	    		$('#success').fadeIn();
-				$('#success').html("");
+// 	    		$('#enterDescription').val("");
+// 	    		$('#success').fadeIn();
+// 				$('#success').html("");
 
-				todos.forEach(function (todo) {
+// 				todos.forEach(function (todo) {
 
-					$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
+// 					$("#success").append('<ul><li> Description: '+ todo.description + '<br/> Id: ' + todo.id + '<br/> Completed: ' + todo.completed + '</li></ul>');
 
-				});
+// 				});
 
-	    	}).fail(function (data) {
+// 	    	}).fail(function (data) {
 
-	    		$('#enterDescription').val("");
-	    		$("#failure").fadeIn();
+// 	    		$('#enterDescription').val("");
+// 	    		$("#failure").fadeIn();
 
-	    	});
+// 	    	});
 
-	    });
+// 	    });
 
-	    //Add a new todo item
+// 	    //Add a new todo item
 
-		$('#addTodo').click(function (event) {
+// 		$('#addTodo').click(function (event) {
 
-			hideAlerts();
+// 			hideAlerts();
 
-		    $description = $('#todoDescription').val();
+// 		    $description = $('#todoDescription').val();
 
-		    $.ajax({
-		    	method: 'post',
-		    	headers: {'Auth': localStorage.getItem('token')}, //Here
-		    	url: '/todos',
-		    	data: JSON.stringify({description: $description, completed: false}),
-		    	dataType: 'json',
-		    	contentType: 'application/json'
-		    }).done(function(data) {
-		    	$('#todoDescription').val("");
-		    	alert(data);
-		    });
+// 		    $.ajax({
+// 		    	method: 'post',
+// 		    	headers: {'Auth': localStorage.getItem('token')}, //Here
+// 		    	url: '/todos',
+// 		    	data: JSON.stringify({description: $description, completed: false}),
+// 		    	dataType: 'json',
+// 		    	contentType: 'application/json'
+// 		    }).done(function(data) {
+// 		    	$('#todoDescription').val("");
+// 		    	alert(data);
+// 		    });
 
-	    });
+// 	    });
 
-	    //DELTE Todo Item
+// 	    //DELTE Todo Item
 
-	    $('#deleteTodo').click(function (event) {
+// 	    $('#deleteTodo').click(function (event) {
 
-	    	hideAlerts();
+// 	    	hideAlerts();
 
-		    $itemToDelete = $('#deleteById').val();
+// 		    $itemToDelete = $('#deleteById').val();
 
-		    $.ajax({
-		    	method: 'delete',
-		    	url: '/todos/delete/' + $itemToDelete,
-		    	headers: {'Auth': localStorage.getItem('token')}, //Here
-		    }).done(function(deletedTodo) {
-		    	$('#deleteById').val("");
-		    	$('#success').html("");
-		    	$('#success').fadeIn();
-		    	$('#success').html("Todo item deleted!")
-		    }).fail(function(data) {
-		    	$('#deleteById').val("");
-		    	$('#failure').html("");
-		    	$('#failure').fadeIn();
-		    	$('#failure').html("No todo with that ID");
-		    });
+// 		    $.ajax({
+// 		    	method: 'delete',
+// 		    	url: '/todos/delete/' + $itemToDelete,
+// 		    	headers: {'Auth': localStorage.getItem('token')}, //Here
+// 		    }).done(function(deletedTodo) {
+// 		    	$('#deleteById').val("");
+// 		    	$('#success').html("");
+// 		    	$('#success').fadeIn();
+// 		    	$('#success').html("Todo item deleted!")
+// 		    }).fail(function(data) {
+// 		    	$('#deleteById').val("");
+// 		    	$('#failure').html("");
+// 		    	$('#failure').fadeIn();
+// 		    	$('#failure').html("No todo with that ID");
+// 		    });
 
-	    });
+// 	    });
 
-	    //Updates a todo item
+// 	    //Updates a todo item
 
-	    $('#updateTodo').click(function (event) {
+// 	    $('#updateTodo').click(function (event) {
 
-	    	hideAlerts();
+// 	    	hideAlerts();
 
-		    var completedStatus;
-		    var descriptionContent;
+// 		    var completedStatus;
+// 		    var descriptionContent;
 
-		    var editedTodo = {};
+// 		    var editedTodo = {};
 
-		    if ($('#updateStatus').val().toLowerCase() === 'true') {
+// 		    if ($('#updateStatus').val().toLowerCase() === 'true') {
 
-		    	completedStatus = true;
-		    	editedTodo.completed = completedStatus;
+// 		    	completedStatus = true;
+// 		    	editedTodo.completed = completedStatus;
 
-		    } else if ($('#updateStatus').val().toLowerCase() === 'false') {
+// 		    } else if ($('#updateStatus').val().toLowerCase() === 'false') {
 
-		    	completedStatus = false;
-		    	editedTodo.completed = completedStatus;
+// 		    	completedStatus = false;
+// 		    	editedTodo.completed = completedStatus;
 
-		    } 
+// 		    } 
 
-		    if ($('#updateDescription').val().trim().length > 0) {
+// 		    if ($('#updateDescription').val().trim().length > 0) {
 
-		    	descriptionContent = $('#updateDescription').val().trim();
-		    	editedTodo.description = descriptionContent;
+// 		    	descriptionContent = $('#updateDescription').val().trim();
+// 		    	editedTodo.description = descriptionContent;
 
-		    }
+// 		    }
 
       
 
-		    $.ajax({
-		    	method: 'put',
-		    	url: '/todos/update/' + $('#updateTodoById').val(),
-		    	headers: {'Auth': localStorage.getItem('token')}, //Here
-		    	data: JSON.stringify(editedTodo),
-		    	dataType: 'json',
-		    	contentType: 'application/json'
-		    }).done(function(data) {
+// 		    $.ajax({
+// 		    	method: 'put',
+// 		    	url: '/todos/update/' + $('#updateTodoById').val(),
+// 		    	headers: {'Auth': localStorage.getItem('token')}, //Here
+// 		    	data: JSON.stringify(editedTodo),
+// 		    	dataType: 'json',
+// 		    	contentType: 'application/json'
+// 		    }).done(function(data) {
 
-		    	$('#updateTodoById').val("");
-		    	$('#updateDescription').val("");
-		    	$('#updateStatus').val("");
+// 		    	$('#updateTodoById').val("");
+// 		    	$('#updateDescription').val("");
+// 		    	$('#updateStatus').val("");
 
-		    	alert(data);
+// 		    	alert(data);
 
-		    }).fail(function(data) {
+// 		    }).fail(function(data) {
 
-		    	$('#updateTodoById').val("");
-		    	$('#updateDescription').val("");
-		    	$('#updateStatus').val("");
+// 		    	$('#updateTodoById').val("");
+// 		    	$('#updateDescription').val("");
+// 		    	$('#updateStatus').val("");
 
-		    	$('#failure').fadeIn();
-		    });
+// 		    	$('#failure').fadeIn();
+// 		    });
 
-	    });
+// 	    });
 
-		//Creates a new user
+// 		//Creates a new user
 
-		$('#createNewUser').click(function (event) {
+// 		$('#createNewUser').click(function (event) {
 
-			hideAlerts();
+// 			hideAlerts();
 
-			var $email = $('#newUserEmail').val();
-			var $password = $('#newUserPassword').val();
+// 			var $email = $('#newUserEmail').val();
+// 			var $password = $('#newUserPassword').val();
 
-			$.ajax({
-		    	method: 'post',
-		    	url: '/users',
-		    	data: JSON.stringify({email: $email, password: $password}),
-		    	dataType: 'json',
-		    	contentType: 'application/json'
-			}).done(function (user) {
-				$('#newUserEmail').val("");
-				$('#newUserPassword').val("");
-				alert(JSON.stringify(user));
-			}).fail(function (data) {
-				$('#newUserEmail').val("");
-				$('#newUserPassword').val("");
-				alert(JSON.stringify(data));
-			});
+// 			$.ajax({
+// 		    	method: 'post',
+// 		    	url: '/users',
+// 		    	data: JSON.stringify({email: $email, password: $password}),
+// 		    	dataType: 'json',
+// 		    	contentType: 'application/json'
+// 			}).done(function (user) {
+// 				$('#newUserEmail').val("");
+// 				$('#newUserPassword').val("");
+// 				alert(JSON.stringify(user));
+// 			}).fail(function (data) {
+// 				$('#newUserEmail').val("");
+// 				$('#newUserPassword').val("");
+// 				alert(JSON.stringify(data));
+// 			});
 
-		});
+// 		});
 
-		//Login User
+// 		//Login User
 
-		$('#loginUser').click(function (event) {
+// 		$('#loginUser').click(function (event) {
 
-			hideAlerts();
+// 			hideAlerts();
 
-			var $loginEmail = $('#loginEmail').val();
-			var $loginPassword = $('#loginPassword').val();
+// 			var $loginEmail = $('#loginEmail').val();
+// 			var $loginPassword = $('#loginPassword').val();
 
-			$.ajax({
-				method: 'post',
-				url: '/users/login',
-				data: JSON.stringify({email: $loginEmail, password: $loginPassword}),
-				dataType: 'json',
-				contentType: 'application/json'
-			}).done(function (user, status, xhr) {
-				$('#loginEmail').val("");
-				$('#loginPassword').val("");
-				var token = xhr.getResponseHeader('Auth'); // Setting the value of token to the value of the header key 'Auth'
-				localStorage.setItem('token', token); // In local storage 'token' is set to the value of header's token ^, now it can be passed along with the other methods from the front-end.
-				alert(JSON.stringify(user));
-			}).fail(function (data) {
-				$('#loginEmail').val("");
-				$('#loginPassword').val("");
-				alert(JSON.stringify(data));
-			});
-		});
+// 			$.ajax({
+// 				method: 'post',
+// 				url: '/users/login',
+// 				data: JSON.stringify({email: $loginEmail, password: $loginPassword}),
+// 				dataType: 'json',
+// 				contentType: 'application/json'
+// 			}).done(function (user, status, xhr) {
+// 				$('#loginEmail').val("");
+// 				$('#loginPassword').val("");
+// 				var token = xhr.getResponseHeader('Auth'); // Setting the value of token to the value of the header key 'Auth'
+// 				localStorage.setItem('token', token); // In local storage 'token' is set to the value of header's token ^, now it can be passed along with the other methods from the front-end.
+// 				alert(JSON.stringify(user));
+// 			}).fail(function (data) {
+// 				$('#loginEmail').val("");
+// 				$('#loginPassword').val("");
+// 				alert(JSON.stringify(data));
+// 			});
+// 		});
+
+// 		//Logout User
+
+// 		$('#logoutUser').click(function (event) { //Don't need to send data with this, just the auth header
+
+// 			hideAlerts();
+
+// 			$.ajax({
+// 				method: 'delete',
+// 				url: '/users/login',
+// 				headers: {'Auth': localStorage.getItem('token')},
+// 				dataType: 'json',
+// 				contentType: 'application/json'
+// 			}).done(function (user, status, xhr) {
+// 				$('#loginEmail').val("");
+// 				$('#loginPassword').val("");
+// 				alert("Logged out user", JSON.stringify(user));
+// 			}).fail(function (data) {
+// 				$('#loginEmail').val("");
+// 				$('#loginPassword').val("");
+// 				alert(JSON.stringify(data));
+// 			});
+// 		});
 
 
-});
+// });
