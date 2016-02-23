@@ -16,7 +16,8 @@ class ShowTodo extends Component {
 			descriptionChanged: false,
 			newDescription: '',
 			newTitle: '',
-			done: true
+			done: false,
+			id: 0
 		};
 		
 
@@ -31,12 +32,14 @@ class ShowTodo extends Component {
 
 	componentWillMount() {
 		this.props.fetchTodo(this.props.params.id).then(() => {
+
 			this.setState({
 				newDescription: this.props.todo.description,
 				newTitle: this.props.todo.title,
-				done: this.props.todo.completed
-			});
-			console.log("This is the todo's starting completed status: ", this.state.done);
+				done: this.props.todo.completed,
+				id: this.props.todo.id
+			}); 
+				
 		});
 	}
 
@@ -66,7 +69,6 @@ class ShowTodo extends Component {
 				</textarea>
 				<span className="input-group-addon">
 				    <input type="checkbox"
-				      value={this.state.done} 
 				      onChange={this.handleDoneChange} />
 		  		</span>
 				<span className="input-group-btn">
@@ -80,6 +82,7 @@ class ShowTodo extends Component {
 	}
 
 	changeButtons() {
+
 		if (!this.state.descriptionChanged) {
 			return null;
 		} else {
@@ -102,7 +105,6 @@ class ShowTodo extends Component {
 			descriptionChanged: true,
 			newDescription: event.target.value
 		});
-		console.log('New description in state: ', this.state.newDescription);
 	}
 
 	handleTitleChange(event) {
@@ -112,41 +114,32 @@ class ShowTodo extends Component {
 		});
 	}
 
-	handleDoneChange(event) { //This isn't updating the done status
+	handleDoneChange() {
 
-		if (event.target.value === false) {
-			this.setState({
-				done: true
-			});
-		} else {
-			this.setState({
-				done: false
-			});
-		}
-
-		var id = this.props.params.id;
+		this.setState({
+			done: !this.state.done
+		});
 
 		var props = {
 			completed: this.state.done
 		};
 
-		this.props.updateTodo(id, JSON.stringify(props));
+		this.props.updateTodo(this.state.id, JSON.stringify(props));
 
 	}
 
-	handleDeleteClick(event) {
-		this.props.deleteTodo(this.props.params.id).then(() => {
+	handleDeleteClick() {
+		this.props.deleteTodo(this.state.id).then(() => {
 			this.context.router.push('/todos_index');
 		});
 	}
 
-	handleSaveClick(event) {
-		var id = this.props.params.id;
+	handleSaveClick() {
 		var props = {
 			title: this.state.newTitle,
 			description: this.state.newDescription
 		};
-		this.props.updateTodo(id, JSON.stringify(props)).then(() => {
+		this.props.updateTodo(this.state.id, JSON.stringify(props)).then(() => {
 			this.context.router.push('/todos_index');
 		});
 	}
