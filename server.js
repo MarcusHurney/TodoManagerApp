@@ -92,10 +92,11 @@ app.get('/todos/:id', middleware.requireAuthentication, function (req, res) {
 // Adds a new todo item
 app.post('/todos', middleware.requireAuthentication, function (req, res) {
 	
-	var body = _.pick(req.body, 'description', 'completed'); //_.pick will check the req.body for any unwanted properties and only keep description and completed.
+	var body = _.pick(req.body, 'description', 'completed', 'title'); //_.pick will check the req.body for any unwanted properties and only keep description and completed.
 
 	db.todo.create({
-		description: body.description
+		description: body.description,
+		title: body.title
 	}).then(function (todo) {
 		req.user.addTodo(todo).then(function () { //req.user is returned from middleware.requireAuthentication when a user is returned from db.user.findByToken
 			return todo.reload(); //Reloads the todo with the new userID association in the todo item.
@@ -139,7 +140,7 @@ app.put('/todos/update/:id', middleware.requireAuthentication, function (req, re
 	var todoId = parseInt(req.params.id, 10);
 	
 
-	var body = _.pick(req.body, 'description', 'completed');
+	var body = _.pick(req.body, 'description', 'completed', 'title');
 	var attributes = {}; //attributes will contain the desired updates to the selected todo item
 
 
@@ -154,6 +155,14 @@ app.put('/todos/update/:id', middleware.requireAuthentication, function (req, re
 		attributes.description = body.description;
 
 	}
+
+	if (body.hasOwnProperty('title')) {
+
+		attributes.title = body.title;
+
+	}
+
+
 
 	db.todo.findOne({
 		where: {

@@ -19,9 +19,9 @@ class TodosIndex extends Component {
 
 			return this.props.todos.map((todo) => {
 				return (
-					<Link to={"todo/" + todo.id}>
-						<li className="list-group-item" key={todo.id}>
-							<p className="pull-xs-right">{todo.description}</p>
+					<Link to={"todo/" + todo.id} key={todo.id}>
+						<li className="list-group-item">
+							<p className="pull-xs-right">{todo.title} {todo.createdAt}</p>
 						</li>
 					</Link>
 				);
