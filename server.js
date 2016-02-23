@@ -162,8 +162,8 @@ app.put('/todos/update/:id', middleware.requireAuthentication, function (req, re
 		}
 	}).then(function (todo) {
 		if (todo) {
-			todo.update(attributes).then(function () { //The selected todo item is updated with the attributes object
-				res.json(JSON.stringify(todo));
+			todo.update(attributes).then(function (todo) { //The selected todo item is updated with the attributes object
+				res.json(todo);
 			}, function (e) {
 			res.status(400).json(e);
 		}); 
