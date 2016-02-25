@@ -3,7 +3,6 @@ import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import LogoutHeader from './LogoutHeader';
 import { createTodo } from '../actions/index';
-import { logoutUser } from '../actions/index';
 
 class NewTodo extends Component {
 	
@@ -33,30 +32,36 @@ class NewTodo extends Component {
 
 				<LogoutHeader></LogoutHeader>
 
-				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-					<h3>Create a New Todo</h3>
+				<div className="row">
 
-					<div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
-						<label>Title</label>
-						<input type="text" className="form-control" placeholder="Max 25 Characters" {...title} />
-						<div className="text-help">
-							{title.touched ? title.error : ''}
-						</div>
+	        		<div className="col-md-6 col-md-offset-3">
+
+						<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+							<h3>Create a New Todo</h3>
+
+							<div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
+								<label>Title</label>
+								<input type="text" className="form-control" placeholder="Max 25 Characters" {...title} />
+								<div className="text-help">
+									{title.touched ? title.error : ''}
+								</div>
+							</div>
+
+							<div className={`form-group ${description.touched && description.invalid ? 'has-danger' : ''}`}>
+								<label>Description</label>
+								<textarea id="descriptionArea" className="form-control" {...description} />
+								<div className="text-help">
+									{description.touched ? description.error : ''}
+								</div>
+							</div>
+
+							<button type="submit" className="btn btn-primary">Add</button>
+							<Link to="/todos_index" className="btn btn-danger">Cancel</Link>
+				
+						</form>
+
 					</div>
-
-					<div className={`form-group ${description.touched && description.invalid ? 'has-danger' : ''}`}>
-						<label>Description</label>
-						<textarea className="form-control" {...description} />
-						<div className="text-help">
-							{description.touched ? description.error : ''}
-						</div>
-					</div>
-
-					<button type="submit" className="btn btn-primary">Add</button>
-					<Link to="/todos_index" className="btn btn-danger">Cancel</Link>
-					<button className="btn btn-default" onClick={this.handleLogout.bind(this)}>Logout</button>
-				</form>
-
+				</div>
 			</div>
 		);
 	}
@@ -85,5 +90,5 @@ export default reduxForm({
 											   //connect: first argument is mapStateToProps, second is mapDispatchToProps
 											   //reduxForm: 1st is form configuration, 2nd is mapStateToProps, 3rd is mapDispatchToProps
 
-}, null, { createTodo, logoutUser })(NewTodo);
+}, null, { createTodo })(NewTodo);
 

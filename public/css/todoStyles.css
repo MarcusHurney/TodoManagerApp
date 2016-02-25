@@ -41,6 +41,29 @@ body {
 	margin-left: 200px;
 }
 
+#newTodo input {
+	background-color: #FFE4C4;
+}
+
+#newTodo textarea {
+	background-color: #FFE4C4;
+	height: 400px;
+}
+
+#showTodo input {
+	background-color: #FFE4C4;
+}
+
+#showTodo textarea {
+	background-color: #FFE4C4;
+	height: 400px;
+}
+
+#btnBack {
+	width: 60px;
+	margin-top: 10px;
+}
+
 .setPageMiddle {
 	margin-top: 250px;
 }
@@ -54,11 +77,11 @@ body {
 }
 
 .btnEdit {
-	margin-right: 25px;
+	margin-right: 20px;
 }
 
 .btnComplete {
-	margin-right: 25px;
+	margin-right: 20px;
 }
 
 .glyphicon-ok {
@@ -76,6 +99,16 @@ body {
 }
 
 .glyphicon-trash {
+	font-size: 1.5em;
+	color: #FFE4C4;
+}
+
+.glyphicon-refresh {
+	font-size: 1.5em;
+	color: #FFE4C4;
+}
+
+.glyphicon-floppy-save {
 	font-size: 1.5em;
 	color: #FFE4C4;
 }

@@ -57,33 +57,41 @@ class ShowTodo extends Component {
 		return (
 			<div id="showTodo">
 
+			<Link id="btnBack" className="btn btn-custom" role="button" to="/todos_index"><span className="glyphicon glyphicon-arrow-left"></span></Link>
+
 				<LogoutHeader></LogoutHeader>
 
-				<div id="editTodoItem" className="input-group">
-					<Link to="/todos_index">Back</Link>
-					<h3>Title</h3>
-					<input 
-						type="text" 
-						className="form-control"
-						value={this.state.newTitle}
-						onChange={this.handleTitleChange} />
-					<h3>Description</h3>
-					<textarea 
-						className="form-control" 
-						value={this.state.newDescription}
-						onChange={this.handleDescriptionChange}>
-					</textarea>
-					<span className="input-group-addon">
-					    <input type="checkbox"
-					      onChange={this.handleDoneChange} />
-			  		</span>
-					<span className="input-group-btn">
-						{this.changeButtons()}
-						<button onClick={this.handleDeleteClick} className="btn btn-danger pull-xs-right">Delete Post</button>
-					</span>
+					<div className="row">
 
-				</div>
-				
+	        			<div className="col-md-6 col-md-offset-3">
+
+						
+								<h3>Edit Todo</h3>
+									<div className="form-group">
+										<label>Title</label>
+										<input 
+											type="text" 
+											className="form-control"
+											value={this.state.newTitle}
+											onChange={this.handleTitleChange} />
+									</div>
+									<div className="form-group">
+										<label>Description</label>
+										<textarea 
+											className="form-control" 
+											value={this.state.newDescription}
+											onChange={this.handleDescriptionChange}>
+										</textarea>
+									</div>
+							
+							<span className="input-group-btn">
+								{this.changeButtons()}
+								<a onClick={this.handleDeleteClick} className="btn btn-danger" role="button"><span className="glyphicon glyphicon-trash"></span></a>
+							</span>
+
+						</div>
+					
+					</div>
 			</div>
 		);
 	}
@@ -96,13 +104,13 @@ class ShowTodo extends Component {
 
 			return [
 			<button 
-			  className="btn btn-default"
+			  className="btn btn-success"
 			  onClick={this.handleSaveClick}
-			  >Save</button>,
+			  ><span className="glyphicon glyphicon-floppy-save"></span></button>,
 			<button 
-			  className="btn btn-default"
+			  className="btn btn-primary"
 			  onClick={this.handleUndoClick}
-			  >Undo</button>
+			  ><span className="glyphicon glyphicon-refresh"></span></button>
 		   ];
 		}
 	}
