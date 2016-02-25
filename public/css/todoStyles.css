@@ -1,30 +1,92 @@
+
+body {
+	background-image: url(./crumpled.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.navbar-brand {
+	color: #8B5742 !important;
+	font-size: 2.0em;
+}
+
+#topRow {
+	margin-top: 150px;
+}
+
+#topRow h1 {
+	font-size: 300%;
+}
+
+#topRow input {
+	background-color: #FFE4C4;
+}
+
+#logoutHeader a {
+ float: right;
+ color: #FFE4C4;
+ margin: 10px 30px;
+ font-size: 1.3em;
+ cursor: pointer;
+}
+
+#noTodosIndex a {
+	width: 40%;
+}
+
+.thumbnail {
+	height: auto;
+	width: 60%;
+	background-color: #FFE4C4;
+	border-radius: 10px;
+	margin-top: 10px;
+}
+
+.btnEdit {
+	margin-right: 25px;
+}
+
+.btnComplete {
+	margin-right: 25px;
+}
+
+.glyphicon-ok {
+	font-size: 8.0em;
+	color: green;
+	padding-left: 55px;
+}
+.glyphicon-edit {
+	font-size: 1.5em;
+	color: #FFE4C4;
+}
+.glyphicon-ok-circle {
+	font-size: 1.5em;
+	color: #FFE4C4;
+}
+
+.glyphicon-trash {
+	font-size: 1.5em;
+	color: #FFE4C4;
+}
+
 .marginTop {
-
-	margin-top: 20px;
-
-	
+	margin-top: 30px;
 }
 
-#searchArea {
-
-	border-top: solid grey;	
-
+.marginRight {
+	margin-right: 5px;
 }
 
-#updateArea {
-
-	border-top: solid grey;	
-	
+.center {
+	text-align: center;
 }
 
-#userArea {
-
-	border-top: solid grey;	
-	
+.bold {
+	font-weight: bold;
 }
 
-#loginArea {
-
-	border-top: solid grey;	
-	
+.btn-custom {
+	background-color: #FFE4C4;
+	color: black;
 }
+

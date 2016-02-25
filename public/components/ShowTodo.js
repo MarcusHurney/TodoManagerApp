@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import LogoutHeader from './LogoutHeader';
 import { fetchTodo, updateTodo, deleteTodo } from '../actions/index';
 import { Link } from 'react-router';
 
@@ -54,29 +55,34 @@ class ShowTodo extends Component {
 		}
 
 		return (
-			<div className="input-group">
-				<Link to="/todos_index">Back</Link>
-				<h3>Title</h3>
-				<input 
-					type="text" 
-					className="form-control"
-					value={this.state.newTitle}
-					onChange={this.handleTitleChange} />
-				<textarea 
-					className="form-control" 
-					value={this.state.newDescription}
-					onChange={this.handleDescriptionChange}>
-				</textarea>
-				<span className="input-group-addon">
-				    <input type="checkbox"
-				      onChange={this.handleDoneChange} />
-		  		</span>
-				<span className="input-group-btn">
-					{this.changeButtons()}
-					<button onClick={this.handleDeleteClick} className="btn btn-danger pull-xs-right">Delete Post</button>
-				</span>
-				
+			<div id="showTodo">
 
+				<LogoutHeader></LogoutHeader>
+
+				<div className="input-group">
+					<Link to="/todos_index">Back</Link>
+					<h3>Title</h3>
+					<input 
+						type="text" 
+						className="form-control"
+						value={this.state.newTitle}
+						onChange={this.handleTitleChange} />
+					<textarea 
+						className="form-control" 
+						value={this.state.newDescription}
+						onChange={this.handleDescriptionChange}>
+					</textarea>
+					<span className="input-group-addon">
+					    <input type="checkbox"
+					      onChange={this.handleDoneChange} />
+			  		</span>
+					<span className="input-group-btn">
+						{this.changeButtons()}
+						<button onClick={this.handleDeleteClick} className="btn btn-danger pull-xs-right">Delete Post</button>
+					</span>
+
+				</div>
+				
 			</div>
 		);
 	}

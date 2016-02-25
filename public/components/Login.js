@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+import LoginHeader from './LoginHeader';
 import { createUser } from '../actions/index';
 import { loginUser } from '../actions/index';
 import { Link } from 'react-router';
@@ -25,27 +26,47 @@ class Login extends Component {
 		const { fields: {email, password}, handleSubmit } = this.props;
 		// const title = this.props.fields.email in ES5
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-				<h3>Create a New User</h3>
 
-				<div className={`form-group ${email.touched && email.invalid ? 'has-danger' : ''}`}>
-					<label>Email</label>
-					<input type="text" className="form-control" {...email} />
-					<div className="text-help">
-						{email.touched ? email.error : ''}
+			<div id="loginPage">
+
+				<LoginHeader></LoginHeader>
+
+				<div className="container contentContainer" id="topContainer">
+
+      				<div className="row">
+
+        				<div className="col-md-6 col-md-offset-3" id="topRow">
+
+          					<h1 className="center">Todo Manager</h1>
+         
+          					<h2 className="bold marginTop center">Stay organized</h2>
+          					<h4 className="bold marginTop center">Read and update your list of todos from anywhere.</h4>
+          					<p className="bold marginTop center">Interested? Sign up below</p>
+
+							<form className="center" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+
+								<div className={`form-group ${email.touched && email.invalid ? 'has-danger' : ''}`}>
+									<label>Email</label>
+									<input type="email" className="form-control" {...email} />
+									<div className="text-help">
+										{email.touched ? email.error : ''}
+									</div>
+								</div>
+
+								<div className={`form-group ${password.touched && password.invalid ? 'has-danger' : ''}`}>
+									<label>Password</label>
+									<input type="password" className="form-control" {...password} />
+									<div className="text-help">
+										{password.touched ? password.error : ''}
+									</div>
+								</div>
+
+								<button type="submit" className="btn btn-custom">Sign Up</button>
+							</form>
+						</div>	
 					</div>
 				</div>
-
-				<div className={`form-group ${password.touched && password.invalid ? 'has-danger' : ''}`}>
-					<label>Password</label>
-					<input type="password" className="form-control" {...password} />
-					<div className="text-help">
-						{password.touched ? password.error : ''}
-					</div>
-				</div>
-
-				<button type="submit" className="btn btn-primary">Submit</button>
-			</form>
+			</div>
 		);
 	}
 }
