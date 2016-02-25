@@ -59,7 +59,7 @@ class ShowTodo extends Component {
 
 				<LogoutHeader></LogoutHeader>
 
-				<div className="input-group">
+				<div id="editTodoItem" className="input-group">
 					<Link to="/todos_index">Back</Link>
 					<h3>Title</h3>
 					<input 
@@ -67,6 +67,7 @@ class ShowTodo extends Component {
 						className="form-control"
 						value={this.state.newTitle}
 						onChange={this.handleTitleChange} />
+					<h3>Description</h3>
 					<textarea 
 						className="form-control" 
 						value={this.state.newDescription}

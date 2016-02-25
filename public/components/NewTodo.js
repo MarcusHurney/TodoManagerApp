@@ -38,7 +38,7 @@ class NewTodo extends Component {
 
 					<div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
 						<label>Title</label>
-						<input type="text" className="form-control" {...title} />
+						<input type="text" className="form-control" placeholder="Max 25 Characters" {...title} />
 						<div className="text-help">
 							{title.touched ? title.error : ''}
 						</div>

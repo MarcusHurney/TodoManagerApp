@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import LogoutHeader from './LogoutHeader';
+import TodoItem from './TodoItem';
 import { fetchTodos } from '../actions/index';
 
 class TodosIndex extends Component {
@@ -15,11 +16,11 @@ class TodosIndex extends Component {
 		if (this.props.todos.length === 0) {
 
 			return (
-				<div id="noTodosIndex" className="center marginTop">
+				<div id="noTodosIndex" className="center setPageMiddle">
 
-					<h3 className="bold">No todos for your account. Please add a todo!</h3>
+					<h2 className="bold">No todos for your account. Add a todo to get started!</h2>
 
-					<Link to="/new_todo" className="btn btn-custom">
+					<Link to="/new_todo" className="btn btn-custom marginTop">
 						Add a Todo
 					</Link>
 
@@ -33,20 +34,9 @@ class TodosIndex extends Component {
 				return (
 					<div id="hasTodosIndex">
 
-						<div className="col-sm-6 col-md-4">
-							<div className="thumbnail">
-						      <span className="glyphicon glyphicon-ok"></span>
-						      <div className="caption">
-						        <h3>{todo.title}</h3>
-						        <p>{todo.createdAt}</p>
-						        <p><Link to={"todo/" + todo.id} key={todo.id} className="btn btn-primary btnEdit" role="button"><span className="glyphicon glyphicon-edit"></span></Link>
-						        <a className="btn btn-success btnComplete" role="button"><span className="glyphicon glyphicon-ok-circle"></span></a>
-						        <a className="btn btn-danger btnDelete" role="button"><span className="glyphicon glyphicon-trash"></span></a></p>
-						      </div>
-						    </div>
-						</div>
+						<TodoItem title={todo.title} createdAt={todo.createdAt} id={todo.id} />
 
-				  </div>
+				    </div>
 				);
 			});
 
@@ -54,23 +44,36 @@ class TodosIndex extends Component {
 		
 	}
 
-	render() {
+	renderAddBtn() {
+
+		if (this.props.todos.length === 0) {
+			return null;
+		}
+
 		return (
-			<div id="todosIndex">
-
-				<LogoutHeader></LogoutHeader>
-
+			<div id="addBtn">
 				<h3>Todos</h3>
 
 				<Link to="/new_todo" className="btn btn-custom">
 					Add a Todo
 				</Link>
+			</div>
+		);
+	}
 
-	  			
+	render() {
+		return (
+
+			<div id="todosIndex">
+
+				<LogoutHeader></LogoutHeader>
+
+	  				{this.renderAddBtn()}
+
 					{this.renderTodos()}
 				
-
 			</div>
+
 		);
 	}
 

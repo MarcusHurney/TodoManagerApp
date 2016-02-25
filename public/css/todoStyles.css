@@ -22,16 +22,27 @@ body {
 	background-color: #FFE4C4;
 }
 
+#logoutHeader {
+	float: right;
+	margin: 10px 30px;
+}
+
 #logoutHeader a {
- float: right;
- color: #FFE4C4;
- margin: 10px 30px;
- font-size: 1.3em;
- cursor: pointer;
+	color: #FFE4C4;
+	font-size: 1.3em;
+	cursor: pointer;
 }
 
 #noTodosIndex a {
 	width: 40%;
+}
+
+#editTodoItem {
+	margin-left: 200px;
+}
+
+.setPageMiddle {
+	margin-top: 250px;
 }
 
 .thumbnail {
