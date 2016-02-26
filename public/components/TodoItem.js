@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchTodos, updateTodo, deleteTodo } from '../actions/index';
+import moment from 'moment';
 
 class TodoItem extends Component {
 
@@ -11,11 +12,11 @@ class TodoItem extends Component {
 				<div className="thumbnail">
 			      <span className="glyphicon glyphicon-ok"></span>
 			      <div className="caption">
-			        <h3>{this.props.title}</h3>
+			        <h4>{this.props.title}</h4>
 			        <p>{this.props.createdAt}</p>
-			        <p><Link to={"todo/" + this.props.id} key={this.props.id} className="btn btn-primary btnEdit" role="button"><span className="glyphicon glyphicon-edit"></span></Link>
-			        <a onClick={this.handleComplete.bind(this)} className="btn btn-success btnComplete" role="button"><span className="glyphicon glyphicon-ok-circle"></span></a>
-			        <a onClick={this.handleDelete.bind(this)} className="btn btn-danger btnDelete" role="button"><span className="glyphicon glyphicon-trash"></span></a></p>
+			        <p><Link to={"todo/" + this.props.id} key={this.props.id} className="btn btn-custom btnEdit" role="button"><span className="glyphicon glyphicon-edit"></span></Link>
+			        <a onClick={this.handleComplete.bind(this)} className="btn btn-custom btnComplete" role="button"><span className="glyphicon glyphicon-ok-circle"></span></a>
+			        <a onClick={this.handleDelete.bind(this)} className="btn btn-custom btnDelete" role="button"><span className="glyphicon glyphicon-trash"></span></a></p>
 			      </div>
 			    </div>
 			</div>

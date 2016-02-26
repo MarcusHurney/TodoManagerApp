@@ -37,10 +37,9 @@ class Login extends Component {
 
         				<div className="col-md-6 col-md-offset-3" id="topRow">
 
-          					<h1 className="center">Todo Manager</h1>
+          					<h1 className="center bold logo">Todo Manager</h1>
          
-          					<h2 className="bold marginTop center">Stay organized</h2>
-          					<h4 className="bold marginTop center">Read and update your list of todos from anywhere.</h4>
+          					<h4 className="bold marginTop center">Read and update your list of todos from anywhere</h4>
           					<p className="bold marginTop center">Interested? Sign up below</p>
 
 							<form className="center" onSubmit={handleSubmit(this.onSubmit.bind(this))}>

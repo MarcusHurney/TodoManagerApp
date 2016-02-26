@@ -86,7 +86,7 @@ class ShowTodo extends Component {
 							
 							<span className="input-group-btn">
 								{this.changeButtons()}
-								<a onClick={this.handleDeleteClick} className="btn btn-danger" role="button"><span className="glyphicon glyphicon-trash"></span></a>
+								<button id="editTodoDelete" className="btn btn-custom" onClick={this.handleDeleteClick}><span className="glyphicon glyphicon-trash"></span></button>
 							</span>
 
 						</div>
@@ -103,12 +103,14 @@ class ShowTodo extends Component {
 		} else {
 
 			return [
-			<button 
-			  className="btn btn-success"
+			<button
+			  id="editTodoSave"
+			  className="btn btn-custom"
 			  onClick={this.handleSaveClick}
 			  ><span className="glyphicon glyphicon-floppy-save"></span></button>,
-			<button 
-			  className="btn btn-primary"
+			<button
+			  id="editTodoRefresh"
+			  className="btn btn-custom"
 			  onClick={this.handleUndoClick}
 			  ><span className="glyphicon glyphicon-refresh"></span></button>
 		   ];

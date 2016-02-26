@@ -6,8 +6,22 @@ body {
 }
 
 .navbar-brand {
+	margin: 5px 0 5px 0;
+	padding: none;
 	color: #8B5742 !important;
-	font-size: 2.0em;
+	font-size: 1.5em;
+	border-style: solid;
+    border-width: 2.0px;
+    border-color: #8B5742;
+
+}
+
+.masterContainer {
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+.logo {
+	font-family: Tahoma, Geneva, sans-serif;
 }
 
 #topRow {
@@ -59,6 +73,16 @@ body {
 	height: 400px;
 }
 
+#addTodo {
+	margin-left: 12px;
+}
+
+#addBtn {
+	color: #FFE4C4;
+	font-size: 1.3em;
+	cursor: pointer;
+}
+
 #btnBack {
 	width: 60px;
 	margin-top: 10px;
@@ -71,17 +95,25 @@ body {
 .thumbnail {
 	height: auto;
 	width: 60%;
+	margin-top: 10px;
 	background-color: #FFE4C4;
 	border-radius: 10px;
-	margin-top: 10px;
+	border-style: solid;
+    border-width: 2.5px;
+    border-color: #808080;
+}
+
+.btn-custom {
+	background-color: #FFE4C4;
+	color: black;
 }
 
 .btnEdit {
-	margin-right: 20px;
+	margin-right: 10px;
 }
 
 .btnComplete {
-	margin-right: 20px;
+	margin-right: 10px;
 }
 
 .glyphicon-ok {
@@ -90,28 +122,55 @@ body {
 	padding-left: 55px;
 }
 .glyphicon-edit {
-	font-size: 1.5em;
-	color: #FFE4C4;
+	font-size: 1.7em;
+	color: #188EB5;
 }
 .glyphicon-ok-circle {
-	font-size: 1.5em;
-	color: #FFE4C4;
+	font-size: 1.9em;
+	color: green;
 }
 
 .glyphicon-trash {
-	font-size: 1.5em;
-	color: #FFE4C4;
+	font-size: 1.7em;
+	color: red;
 }
 
 .glyphicon-refresh {
 	font-size: 1.5em;
-	color: #FFE4C4;
+	color: #188EB5;
 }
 
 .glyphicon-floppy-save {
 	font-size: 1.5em;
-	color: #FFE4C4;
+	color: green;
 }
+
+#newTodo button {
+	width: 50%;
+}
+
+#newTodo span {
+	font-size: font-size: 1.5em;
+}
+
+#newTodoCancel {
+	color: #FFE4C4;
+	font-size: 1.6em;
+	cursor: pointer;
+	float: right;
+}
+
+#showTodo button {
+	width: 28%;
+	margin: 0 15px;
+	border-radius: 5px;
+}
+
+#editTodoDelete span {
+	font-size: 1.5em;
+	color: red;
+}
+
 
 .marginTop {
 	margin-top: 30px;
@@ -129,8 +188,4 @@ body {
 	font-weight: bold;
 }
 
-.btn-custom {
-	background-color: #FFE4C4;
-	color: black;
-}
 

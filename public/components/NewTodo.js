@@ -55,8 +55,8 @@ class NewTodo extends Component {
 								</div>
 							</div>
 
-							<button type="submit" className="btn btn-primary">Add</button>
-							<Link to="/todos_index" className="btn btn-danger">Cancel</Link>
+							<button type="submit" className="btn btn-custom"><span className="glyphicon glyphicon-plus"></span></button>
+							<Link id="newTodoCancel" to="/todos_index">Cancel</Link>
 				
 						</form>
 

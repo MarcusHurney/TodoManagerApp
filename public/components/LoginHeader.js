@@ -35,7 +35,7 @@ class LoginHeader extends Component {
 				            <span className="icon-bar"></span>
 				            <span className="icon-bar"></span>
 				          </button>
-				          <a className="navbar-brand">Todo Manager</a>
+				          <a className="navbar-brand logo">Todo Manager</a>
 
 			        	</div>
 

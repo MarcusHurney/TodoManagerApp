@@ -20,9 +20,7 @@ class TodosIndex extends Component {
 
 					<h2 className="bold">No todos for your account. Add a todo to get started!</h2>
 
-					<Link to="/new_todo" className="btn btn-custom marginTop">
-						Add a Todo
-					</Link>
+					<Link to="/new_todo" className="btn btn-custom marginTop">Add Todo</Link>
 
 				</div>
 
@@ -51,12 +49,10 @@ class TodosIndex extends Component {
 		}
 
 		return (
-			<div id="addBtn">
-				<h3>Todos</h3>
+			<div id="addTodo">
+				<h3>Your Todos</h3>
 
-				<Link to="/new_todo" className="btn btn-custom">
-					Add a Todo
-				</Link>
+				<Link to="/new_todo" id="addBtn"><span className="glyphicon glyphicon-plus"></span> Add Todo</Link>
 			</div>
 		);
 	}
