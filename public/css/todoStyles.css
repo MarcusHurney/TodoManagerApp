@@ -116,6 +116,12 @@ body {
 	margin-right: 10px;
 }
 
+.glyphicon-remove {
+	font-size: 8.0em;
+	color: red;
+	padding-left: 43px;
+}
+
 .glyphicon-ok {
 	font-size: 8.0em;
 	color: green;

@@ -32,7 +32,7 @@ class TodosIndex extends Component {
 				return (
 					<div id="hasTodosIndex">
 
-						<TodoItem title={todo.title} createdAt={todo.createdAt} id={todo.id} />
+						<TodoItem title={todo.title} createdAt={todo.createdAt} id={todo.id} completed={todo.completed} />
 
 				    </div>
 				);

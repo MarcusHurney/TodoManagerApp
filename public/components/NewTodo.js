@@ -72,8 +72,6 @@ class NewTodo extends Component {
 function validate(values) {
 	const errors = {};
 
-	
-
 
 	if (!values.title) {
 		errors.title = 'Please enter a title';

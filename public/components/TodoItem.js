@@ -13,7 +13,7 @@ class TodoItem extends Component {
 		return (
 			<div className="col-sm-6 col-md-4">
 				<div key={this.props.id} className="thumbnail">
-			      <span className="glyphicon glyphicon-ok"></span>
+			      <span className={this.props.completed ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"}></span>
 			      <div className="caption">
 			        <h4>{this.props.title}</h4>
 			        <p>{createdDate}</p>
