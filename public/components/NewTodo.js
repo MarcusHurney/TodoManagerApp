@@ -49,7 +49,7 @@ class NewTodo extends Component {
 
 							<div className={`form-group ${description.touched && description.invalid ? 'has-danger' : ''}`}>
 								<label>Description</label>
-								<textarea id="descriptionArea" className="form-control" {...description} />
+								<textarea id="descriptionArea" className="form-control" placeholder="Max 500 characters" {...description} />
 								<div className="text-help">
 									{description.touched ? description.error : ''}
 								</div>
@@ -72,12 +72,28 @@ class NewTodo extends Component {
 function validate(values) {
 	const errors = {};
 
+	
+
+
 	if (!values.title) {
 		errors.title = 'Please enter a title';
 	}
 
+	if (values.title) {
+		if (values.title.length > 25){
+			errors.title = 'You exceeded 25 characters';
+		}
+		
+	}
+
 	if (!values.description) {
 		errors.description = 'Please enter your description';
+	}
+
+	if (values.description) {
+		if (values.description.length > 500) {
+			errors.description = "You exceeded 500 characters";
+		}
 	}
 
 	return errors;
