@@ -17,19 +17,21 @@ body {
 }
 
 .masterContainer {
-	font-family: Verdana, Geneva, sans-serif;
+	font-family: font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 }
 
 .logo {
-	font-family: Tahoma, Geneva, sans-serif;
+	font-weight: 300;
 }
 
 #topRow {
-	margin-top: 150px;
+	margin-top: 185px;
 }
 
-#topRow h1 {
-	font-size: 300%;
+#loginPage h1 {
+
+	font-weight: 325;
+	font-size: 250%;
 }
 
 #topRow input {
