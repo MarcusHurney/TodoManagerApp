@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { loginUser } from '../actions/index';
+import { loginUser } from 'Actions';
 
 class LoginHeader extends Component {
 

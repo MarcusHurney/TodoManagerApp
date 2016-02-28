@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import LogoutHeader from './LogoutHeader';
-import TodoItem from './TodoItem';
-import { fetchTodos } from '../actions/index';
+import LogoutHeader from 'LogoutHeader';
+import TodoItem from 'TodoItem';
+import { fetchTodos } from 'Actions';
 
 class TodosIndex extends Component {
 

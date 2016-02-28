@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './components/App';
-import Login from './components/Login';
-import TodosIndex from './components/TodosIndex';
-import NewTodo from './components/NewTodo';
-import ShowTodo from './components/ShowTodo';
+import App from 'App';
+import Login from 'Login';
+import TodosIndex from 'TodosIndex';
+import NewTodo from 'NewTodo';
+import ShowTodo from 'ShowTodo';
 
 export default (
 	<Route path="/" component={App}>

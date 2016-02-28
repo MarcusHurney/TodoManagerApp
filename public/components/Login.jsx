@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import LoginHeader from './LoginHeader';
-import { createUser } from '../actions/index';
-import { loginUser } from '../actions/index';
+import LoginHeader from 'LoginHeader';
+import { createUser } from 'Actions';
+import { loginUser } from 'Actions';
 import { Link } from 'react-router';
 
 class Login extends Component {

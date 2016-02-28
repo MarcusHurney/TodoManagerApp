@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchTodos, updateTodo, deleteTodo } from '../actions/index';
+import { fetchTodos, updateTodo, deleteTodo } from 'Actions';
 import moment from 'moment';
 
 class TodoItem extends Component {

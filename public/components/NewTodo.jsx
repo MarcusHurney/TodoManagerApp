@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import LogoutHeader from './LogoutHeader';
-import { createTodo } from '../actions/index';
+import LogoutHeader from 'LogoutHeader';
+import { createTodo } from 'Actions';
 
 class NewTodo extends Component {
 	

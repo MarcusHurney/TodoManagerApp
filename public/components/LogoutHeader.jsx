@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { logoutUser } from '../actions/index';
+import { logoutUser } from 'Actions';
 import { connect } from 'react-redux';
 
 class LogoutHeader extends Component {
