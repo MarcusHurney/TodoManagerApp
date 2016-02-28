@@ -5,34 +5,25 @@ import LogoutHeader from 'LogoutHeader';
 import { fetchTodo, updateTodo, deleteTodo } from 'Actions';
 import { Link } from 'react-router';
 
-class ShowTodo extends Component {
+var contextTypes = {
+	router: PropTypes.object
+};
 
-	static contextTypes = {
-		router: PropTypes.object
-	};
 
-	constructor(props) {
-		super(props);
+var ShowTodo = React.createClass({
 
-		this.state = {
+	getInitialState: function () {
+		return {
 			descriptionChanged: false,
 			newDescription: '',
 			newTitle: '',
 			done: false,
 			id: 0
 		};
-		
+	},
 
-		this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-		this.handleDeleteClick = this.handleDeleteClick.bind(this);
-		this.changeButtons = this.changeButtons.bind(this);
-		this.handleSaveClick = this.handleSaveClick.bind(this);
-		this.handleUndoClick = this.handleUndoClick.bind(this);
-		this.handleTitleChange = this.handleTitleChange.bind(this);
-		this.handleDoneChange = this.handleDoneChange.bind(this);
-	}
+	componentWillMount: function() {
 
-	componentWillMount() {
 		this.props.fetchTodo(this.props.params.id).then(() => {
 
 			this.setState({
@@ -43,15 +34,19 @@ class ShowTodo extends Component {
 			}); 
 				
 		});
-	}
+	},
 
-	render() {
+	render: function () {
+
+		console.log("this.state.newTitle in State: ", this.state.newTitle);
+
+		console.log("this.state.newDescription in state: ", this.state.newDescription);
+
+		console.log("this.state.descriptionChanged: ", this.state.descriptionChanged);
+
 
 		const { todo } = this.props;
 		const { fields: {title, description}, handleSubmit } = this.props;
-
-		console.log("Fields: description: ", this.props.fields.description.value); //These values change as expected
-		console.log("Fields: title: ", this.props.fields.title.value);
 	
 
 		if (!todo) {
@@ -83,7 +78,7 @@ class ShowTodo extends Component {
 											{...title} />
 									</div>
 									<div className="text-help">
-										{description.touched ? description.error : ''}
+										{title.touched ? title.error : ''}
 									</div>
 									<div className={`form-group ${description.touched && description.invalid ? 'has-danger' : ''}`}>
 										<label>Description</label>
@@ -108,9 +103,9 @@ class ShowTodo extends Component {
 					</div>
 			</div>
 		);
-	}
+	},
 
-	changeButtons() { //This does not get called when there are changed in the input or textareas.
+	changeButtons: function () {
 
 		if (!this.state.descriptionChanged) {
 			return null;
@@ -129,27 +124,25 @@ class ShowTodo extends Component {
 			  ><span className="glyphicon glyphicon-refresh"></span></button>
 		   ];
 		}
-	}
+	},
 
-	handleDescriptionChange(event) { //This does not get called when there is a change in the textarea
+	handleDescriptionChange: function (event) {
 		this.setState({
 			descriptionChanged: true,
-			newDescription: this.props.fields.description.value
+			newDescription: event.target.value
 		});
-		
-	}
+		console.log("This should get logged to the console if handleDescriptionChange gets called");
+	},
 
-	handleTitleChange(event) { //This does not get called when there is a changed in the input field.
-
+	handleTitleChange: function (event) {
 		this.setState({
 			descriptionChanged: true,
-			newTitle: this.props.fields.title.value
+			newTitle: event.target.value
 		});
+		console.log("This should get logged to the console if handleTitleChange gets called");
+	},
 
-	}
-
-	handleDoneChange() {
-
+	handleDoneChange: function (event) {
 		this.setState({
 			done: !this.state.done
 		});
@@ -159,26 +152,22 @@ class ShowTodo extends Component {
 		};
 
 		this.props.updateTodo(this.state.id, JSON.stringify(props));
+	},
 
-	}
-
-	handleDeleteClick() {
+	handleDeleteClick: function () {
 		this.props.deleteTodo(this.state.id).then(() => {
 			this.context.router.push('/todos_index');
 		});
-	}
+	},
 
-	handleSaveClick(props) {
-
+	handleSaveClick: function(props) {
 		this.props.updateTodo(this.state.id, JSON.stringify(props)).then(() => {
 			alert("Todo updates should have been recieved in database");
 			this.context.router.push('/todos_index');
 		});	
-		
-	}
+	},
 
-	handleUndoClick() {
-
+	handleUndoClick: function() {
 		this.setState({
 			descriptionChanged: false,
 			newTitle: this.props.todo.title,
@@ -190,7 +179,8 @@ class ShowTodo extends Component {
 
 		});
 	}
-}
+
+});  
 
 function validate(values) {
 	const errors = {};
