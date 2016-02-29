@@ -5,49 +5,44 @@ import LogoutHeader from 'LogoutHeader';
 import { fetchTodo, updateTodo, deleteTodo } from 'Actions';
 import { Link } from 'react-router';
 
-var contextTypes = {
-	router: PropTypes.object
-};
+class ShowTodo extends Component {
 
+	static contextTypes = {
+		router: PropTypes.object
+	};
 
-var ShowTodo = React.createClass({
+	constructor(props) {
+		super(props);
 
-	getInitialState: function () {
-		return {
-			descriptionChanged: false,
-			newDescription: '',
-			newTitle: '',
+		this.state = {
+			todoDescription: '',
+			todoTitle: '',
 			done: false,
 			id: 0
 		};
-	},
+		
+	}
 
-	componentWillMount: function() {
-
+	componentWillMount() {
 		this.props.fetchTodo(this.props.params.id).then(() => {
 
-			this.setState({
-				newDescription: this.props.todo.description,
-				newTitle: this.props.todo.title,
+			this.setState({    //Here this.state is given the values of the specific todo item feteched from the database.
+				todoDescription: this.props.todo.description,
+				todoTitle: this.props.todo.title,
 				done: this.props.todo.completed,
 				id: this.props.todo.id
 			}); 
 				
 		});
-	},
+	}
 
-	render: function () {
-
-		console.log("this.state.newTitle in State: ", this.state.newTitle);
-
-		console.log("this.state.newDescription in state: ", this.state.newDescription);
-
-		console.log("this.state.descriptionChanged: ", this.state.descriptionChanged);
-
+	render() {
 
 		const { todo } = this.props;
 		const { fields: {title, description}, handleSubmit } = this.props;
-	
+
+		console.log("State", this.state);
+		console.log("Todo item in props (comes from Redux): ", this.props.todo);
 
 		if (!todo) {
 			return (
@@ -66,15 +61,14 @@ var ShowTodo = React.createClass({
 
 	        			<div className="col-md-6 col-md-offset-3">
 
-								<form onSubmit={handleSubmit(this.handleSaveClick)}>
+								<form onSubmit={handleSubmit(this.handleSaveClick.bind(this))}>
 									<h3>Edit Todo</h3>
 									<div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
 										<label>Title</label>
 										<input 
 											type="text" 
 											className="form-control"
-											value={this.state.newTitle}
-											onChange={this.handleTitleChange}
+											value={this.state.todoTitle}
 											{...title} />
 									</div>
 									<div className="text-help">
@@ -84,103 +78,59 @@ var ShowTodo = React.createClass({
 										<label>Description</label>
 										<textarea
 											className="form-control" 
-											value={this.state.newDescription}
-											onChange={this.handleDescriptionChange}
+											value={this.state.todoDescription}
 											{...description} >
 										</textarea>
 									</div>
 									<div className="text-help">
 										{description.touched ? description.error : ''}
 									</div>
-									<span className="input-group-btn">
-										{this.changeButtons()}
-										<button id="editTodoDelete" className="btn btn-custom" onClick={this.handleDeleteClick}><span className="glyphicon glyphicon-trash"></span></button>
-									</span>
+									
+										<button type="submit" id="editTodoSave" className="btn btn-custom"><span className="glyphicon glyphicon-floppy-save"></span></button>
+										
 								</form>
 
+								<button id="editTodoRefresh" className="btn btn-custom" onClick={this.handleUndoClick.bind(this)}><span className="glyphicon glyphicon-refresh"></span></button>
+								<button id="editTodoDelete" className="btn btn-custom" onClick={this.handleDeleteClick.bind(this)}><span className="glyphicon glyphicon-trash"></span></button>
 						</div>
 					
 					</div>
 			</div>
 		);
-	},
+	}
 
-	changeButtons: function () {
 
-		if (!this.state.descriptionChanged) {
-			return null;
-		} else {
+	handleDeleteClick() {
 
-			return [
-			<button
-			  type="submit"
-			  id="editTodoSave"
-			  className="btn btn-custom"
-			  ><span className="glyphicon glyphicon-floppy-save"></span></button>,
-			<button
-			  id="editTodoRefresh"
-			  className="btn btn-custom"
-			  onClick={this.handleUndoClick}
-			  ><span className="glyphicon glyphicon-refresh"></span></button>
-		   ];
-		}
-	},
+		console.log("Handle Delete Click got called!");
 
-	handleDescriptionChange: function (event) {
-		this.setState({
-			descriptionChanged: true,
-			newDescription: event.target.value
-		});
-		console.log("This should get logged to the console if handleDescriptionChange gets called");
-	},
-
-	handleTitleChange: function (event) {
-		this.setState({
-			descriptionChanged: true,
-			newTitle: event.target.value
-		});
-		console.log("This should get logged to the console if handleTitleChange gets called");
-	},
-
-	handleDoneChange: function (event) {
-		this.setState({
-			done: !this.state.done
-		});
-
-		var props = {
-			completed: this.state.done
-		};
-
-		this.props.updateTodo(this.state.id, JSON.stringify(props));
-	},
-
-	handleDeleteClick: function () {
 		this.props.deleteTodo(this.state.id).then(() => {
 			this.context.router.push('/todos_index');
 		});
-	},
 
-	handleSaveClick: function(props) {
+	}
+
+	handleSaveClick(props) {
+
+		console.log("Handle Save Click got called!");
+
 		this.props.updateTodo(this.state.id, JSON.stringify(props)).then(() => {
 			alert("Todo updates should have been recieved in database");
 			this.context.router.push('/todos_index');
 		});	
-	},
-
-	handleUndoClick: function() {
-		this.setState({
-			descriptionChanged: false,
-			newTitle: this.props.todo.title,
-			newDescription: this.props.todo.description,
-			errors: {
-				title: '',
-				description: ''
-			}
-
-		});
+		
 	}
 
-});  
+	handleUndoClick() {
+
+		console.log("Handle Undo Got Called!");
+
+		this.setState({ //This should change the values of the form back to the original values because the form takes its values from this.state
+			todoTitle: this.props.todo.title,
+			todoDescription: this.props.todo.description
+		});
+	}
+}
 
 function validate(values) {
 	const errors = {};
@@ -221,7 +171,3 @@ export default reduxForm({
 											   //reduxForm: 1st is form configuration, 2nd is mapStateToProps, 3rd is mapDispatchToProps
 
 }, mapStateToProps, { fetchTodo, updateTodo, deleteTodo })(ShowTodo);
-
-
-
-
