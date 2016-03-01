@@ -40,7 +40,9 @@ class TodoItem extends Component {
 			completed: true
 		};
 
-		this.props.updateTodo(this.props.id, JSON.stringify(props));
+		this.props.updateTodo(this.props.id, JSON.stringify(props)).then(() => {
+			this.props.fetchTodos();
+		});
 	}
 
 }
