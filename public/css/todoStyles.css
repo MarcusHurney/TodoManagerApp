@@ -179,6 +179,16 @@ body {
 	color: red;
 }
 
+#editTodoSave {
+	margin-right: 5px;
+}
+
+#editTodoRefresh {
+	margin-right: 5px;
+}
+
+
+
 
 .marginTop {
 	margin-top: 30px;
