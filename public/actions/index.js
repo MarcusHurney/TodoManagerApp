@@ -79,8 +79,6 @@ export function updateTodo(id, props) {
 	var config = {headers: {'Auth' : localStorage.getItem('token'),
 							'Content-Type' : 'application/json'}};
 
-	console.log('This is the config in updateTodo: ', config);
-
 	const request = axios.put(`/todos/update/${id}`, props, config);
 
 	return {

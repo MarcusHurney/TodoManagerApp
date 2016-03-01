@@ -16,11 +16,17 @@ class TodosIndex extends Component {
 		if (this.props.todos.length === 0) {
 
 			return (
-				<div id="noTodosIndex" className="center setPageMiddle">
-
-					<h2 className="bold">No todos for your account. Add a todo to get started!</h2>
-
-					<Link to="/new_todo" className="btn btn-custom marginTop">Add Todo</Link>
+				<div id="noTodosIndex">
+					<div className="row">
+					  <div className="col-md-6 col-md-offset-3">
+					    <div id="noTodosThumbnail" className="thumbnail">
+						    <Link to="/new_todo"><span id="firstTodoIcon" className="glyphicon glyphicon-copy"></span></Link>
+						    <div class="caption">
+						    	<p>Write your first todo item</p>
+						    </div>
+					    </div>
+					  </div>
+					</div>
 
 				</div>
 

@@ -51,9 +51,11 @@ var ShowTodo = React.createClass({
 							<textarea type ="text" className="form-control" onChange={this.descriptionChange} value={this.state.todoDescription}></textarea>
 						</div>
 
-						<button id="editTodoSave" className="btn btn-custom" onClick={this.handleSaveClick}><span className="glyphicon glyphicon-floppy-save"></span></button>
-						<button id="editTodoRefresh" className="btn btn-custom" onClick={this.handleUndoClick}><span className="glyphicon glyphicon-refresh"></span></button>
-						<button id="editTodoDelete" className="btn btn-custom" onClick={this.handleDeleteClick}><span className="glyphicon glyphicon-trash"></span></button>
+						<div class="btn-group" role="group" aria-label="update options">
+							<button id="editTodoSave" className="btn btn-custom" onClick={this.handleSaveClick}><span className="glyphicon glyphicon-floppy-save"></span></button>
+							<button id="editTodoRefresh" className="btn btn-custom" onClick={this.handleUndoClick}><span className="glyphicon glyphicon-refresh"></span></button>
+							<button id="editTodoDelete" className="btn btn-custom" onClick={this.handleDeleteClick}><span className="glyphicon glyphicon-trash"></span></button>
+						</div>
 
 					</div>
 					</div>
@@ -68,7 +70,6 @@ var ShowTodo = React.createClass({
 			todoTitle: event.target.value,
 			textChanged: true
 		});
-		console.log('Title Changed!');
 	},
 
 	descriptionChange: function (event) {
@@ -76,7 +77,6 @@ var ShowTodo = React.createClass({
 			todoDescription: event.target.value,
 			textChanged: true
 		});
-		console.log("Description Changed!");
 	},
 
 	handleSaveClick: function () {
@@ -104,7 +104,6 @@ var ShowTodo = React.createClass({
 	},
 
 	handleUndoClick: function () {
-		console.log("Handle Undo Got Called!");
 
 		this.setState({ //This should change the values of the form back to the original values because the form takes its values from this.state
 			todoTitle: this.props.todo.title,

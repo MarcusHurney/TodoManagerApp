@@ -8,11 +8,12 @@ body {
 .navbar-brand {
 	margin: 5px 0 5px 0;
 	padding: none;
-	color: #8B5742 !important;
+	color: #600000 !important;
 	font-size: 1.5em;
+	font-weight: 325;
 	border-style: solid;
     border-width: 2.0px;
-    border-color: #8B5742;
+    border-color: #600000;
     height: 40px;
 }
 
@@ -50,12 +51,29 @@ body {
 	cursor: pointer;
 }
 
-#noTodosIndex a {
-	width: 40%;
+#noTodosThumbnail {
+	margin-top: 45px;
+	height: 600px;
+	width: 500px;
 }
 
-#editTodoItem {
-	margin-left: 200px;
+#firstTodoIcon {
+	font-size: 18em;
+	color: #188EB5;
+	padding: 60px 75px 30px 95px;
+}
+
+#noTodosIndex p {
+	text-align: center;
+	font-size: 4.5em;
+	font-weight: 100;
+	font-family: ‘Courier New’, Courier, monospace;
+	line-height: 70px;
+	color: #600000;
+}
+
+#noTodosIndex a {
+	cursor: pointer;
 }
 
 #newTodo input {
@@ -81,10 +99,6 @@ body {
 #btnBack {
 	width: 60px;
 	margin-top: 10px;
-}
-
-.setPageMiddle {
-	margin-top: 250px;
 }
 
 .thumbnail {
@@ -156,7 +170,7 @@ body {
 
 #newTodoCancel {
 	color: #FFE4C4;
-	font-size: 1.6em;
+	font-size: 1.4em;
 	cursor: pointer;
 	float: right;
 }
@@ -169,8 +183,16 @@ body {
 
 #showTodo button {
 	width: 28%;
-	margin: 10px 5px;
+	margin-top: 10px;
 	border-radius: 5px;
+}
+
+#editTodoSave {
+	margin-right: 40px;
+}
+
+#editTodoRefresh {
+	margin-right: 40px;
 }
 
 #showTodo input {
