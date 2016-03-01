@@ -138,9 +138,13 @@ app.delete('/todos/delete/:id', middleware.requireAuthentication, function (req,
 app.put('/todos/update/:id', middleware.requireAuthentication, function (req, res) {
 
 	var todoId = parseInt(req.params.id, 10);
+
+	console.log("This is the request in server.js: ", req);
 	
+	console.log("This is the request body in server.js: ", req.body);
 
 	var body = _.pick(req.body, 'description', 'completed', 'title');
+
 	var attributes = {}; //attributes will contain the desired updates to the selected todo item
 
 

@@ -13,15 +13,16 @@ body {
 	border-style: solid;
     border-width: 2.0px;
     border-color: #8B5742;
-
-}
-
-.masterContainer {
-	font-family: font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    height: 40px;
 }
 
 .logo {
 	font-weight: 300;
+	padding-top: 10px;
+}
+
+.masterContainer {
+	font-family: font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 }
 
 #topRow {
@@ -66,14 +67,6 @@ body {
 	height: 400px;
 }
 
-#showTodo input {
-	background-color: #FFE4C4;
-}
-
-#showTodo textarea {
-	background-color: #FFE4C4;
-	height: 400px;
-}
 
 #addTodo {
 	margin-left: 12px;
@@ -168,27 +161,31 @@ body {
 	float: right;
 }
 
+#showTodo div {
+	margin-top: 10px;
+	padding-left: 65px;
+	width: 600px;
+}
+
 #showTodo button {
 	width: 28%;
-	margin: 0 15px;
+	margin: 10px 5px;
 	border-radius: 5px;
+}
+
+#showTodo input {
+	background-color: #FFE4C4;
+}
+
+#showTodo textarea {
+	background-color: #FFE4C4;
+	height: 400px;
 }
 
 #editTodoDelete span {
 	font-size: 1.5em;
 	color: red;
 }
-
-#editTodoSave {
-	margin-right: 5px;
-}
-
-#editTodoRefresh {
-	margin-right: 5px;
-}
-
-
-
 
 .marginTop {
 	margin-top: 30px;
@@ -204,6 +201,10 @@ body {
 
 .bold {
 	font-weight: bold;
+}
+
+.navbar-fixed-top {
+	height: 10px;
 }
 
 

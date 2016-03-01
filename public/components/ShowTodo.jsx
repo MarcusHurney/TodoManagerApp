@@ -33,16 +33,34 @@ var ShowTodo = React.createClass({
 
 		return (
 			<div>
-				<label>Title</label>
-				<input type="text" onChange={this.titleChange} value={this.state.todoTitle} />
-				<label>Description</label>
-				<textarea type ="text" onChange={this.descriptionChange} value={this.state.todoDescription}></textarea>
+				<Link id="btnBack" className="btn btn-custom" role="button" to="/todos_index"><span className="glyphicon glyphicon-arrow-left"></span></Link>
+				<LogoutHeader></LogoutHeader>
+				
+				<div id="showTodo">
 
-				<button id="editTodoSave" className="btn btn-custom" onClick={this.handleSaveClick}><span className="glyphicon glyphicon-floppy-save"></span></button>
-				<button id="editTodoRefresh" className="btn btn-custom" onClick={this.handleUndoClick}><span className="glyphicon glyphicon-refresh"></span></button>
-				<button id="editTodoDelete" className="btn btn-custom" onClick={this.handleDeleteClick}><span className="glyphicon glyphicon-trash"></span></button>
+					<div className="row">
+		        	<div className="col-md-6 col-md-offset-3">
+
+		        		<div className="input-group">
+							<label>Title</label>
+							<input type="text" className="form-control" onChange={this.titleChange} value={this.state.todoTitle} />
+						</div>
+
+						<div className="input-group">
+							<label>Description</label>
+							<textarea type ="text" className="form-control" onChange={this.descriptionChange} value={this.state.todoDescription}></textarea>
+						</div>
+
+						<button id="editTodoSave" className="btn btn-custom" onClick={this.handleSaveClick}><span className="glyphicon glyphicon-floppy-save"></span></button>
+						<button id="editTodoRefresh" className="btn btn-custom" onClick={this.handleUndoClick}><span className="glyphicon glyphicon-refresh"></span></button>
+						<button id="editTodoDelete" className="btn btn-custom" onClick={this.handleDeleteClick}><span className="glyphicon glyphicon-trash"></span></button>
+
+					</div>
+					</div>
+
+				</div>
 			</div>
-		)
+		);
 	},
 
 	titleChange: function (event) {
