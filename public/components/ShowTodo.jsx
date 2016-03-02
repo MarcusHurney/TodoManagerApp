@@ -88,10 +88,26 @@ var ShowTodo = React.createClass({
 			description: this.state.todoDescription
 		};
 
-		this.props.updateTodo(this.state.id, JSON.stringify(props)).then(() => {
+		if (props.title.length > 25 || props.title.length === 0) {
+
+			alert("Error in title");
+			return null;
+
+		} else if (props.description.length > 500 || props.description.length === 0) {
+
+			alert("Error in description");
+			return null
+			
+		} else {
+
+			this.props.updateTodo(this.state.id, JSON.stringify(props)).then(() => {
 			alert("Todo updates should have been recieved in database");
 			// this.context.router.push('/todos_index');
-		});
+			});
+
+		}
+
+		
 
 	},
 

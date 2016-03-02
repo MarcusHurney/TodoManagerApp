@@ -80,7 +80,10 @@ function validate(values) {
 	if (!values.password) {
 		errors.password = 'Please enter a password';
 	}
-
+	if (values.password && values.password.length < 7) {
+		errors.password = 'Password must be at least 7 characters long';
+	}
+	
 	return errors;
 }
 

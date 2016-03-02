@@ -27,6 +27,9 @@ export function loginUser(props) {
 		var token = response.headers.auth;
 		localStorage.setItem('token', token); //The user's token is taken from the reponse and set in local storage as 'token'
 		console.log('Token: ', localStorage.getItem('token'));
+	}, (response) => {
+		console.log("Error block in loginUser has been reached");
+		throw new Error(response.data.status);
 	});
 
 	return {
