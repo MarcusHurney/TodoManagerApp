@@ -160,6 +160,11 @@ body {
 	color: green;
 }
 
+#newTodo .glyphicon-plus {
+	color: green;
+	font-size: 1.4em;
+}
+
 #newTodo button {
 	width: 50%;
 }
@@ -169,6 +174,8 @@ body {
 }
 
 #newTodoCancel {
+	margin-top: 8px;
+	margin-right: 12px;
 	color: #FFE4C4;
 	font-size: 1.4em;
 	cursor: pointer;
@@ -176,7 +183,7 @@ body {
 }
 
 #showTodo div {
-	margin-top: 10px;
+	margin-top: 5px;
 	padding-left: 65px;
 	width: 600px;
 }
@@ -185,6 +192,12 @@ body {
 	width: 28%;
 	margin-top: 10px;
 	border-radius: 5px;
+}
+
+.error {
+	text-align: left;
+	font-size: 1.0em;
+	font-weight: 800;
 }
 
 #editTodoSave {

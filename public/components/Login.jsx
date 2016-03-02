@@ -54,7 +54,7 @@ class Login extends Component {
 
 								<div className={`form-group ${password.touched && password.invalid ? 'has-danger' : ''}`}>
 									<label>Password</label>
-									<input type="password" className="form-control" placeholder="7 characters minimum" {...password} />
+									<input type="password" className="form-control" {...password} />
 									<div className="text-help">
 										{password.touched ? password.error : ''}
 									</div>

@@ -12,7 +12,9 @@ var ShowTodo = React.createClass({
 			todoTitle: null,
 			done: null,
 			id: null,
-			textChanged: false
+			textChanged: false,
+			titleError: false,
+			descriptionError: false
 		};
 	},
 	componentWillMount: function() {
@@ -45,10 +47,16 @@ var ShowTodo = React.createClass({
 							<label>Title</label>
 							<input type="text" className="form-control" onChange={this.titleChange} value={this.state.todoTitle} />
 						</div>
+						<div className={`error ${this.state.titleError ? '' : 'hide'}`}>
+							Please enter a title 25 characters or less
+						</div>
 
 						<div className="input-group">
 							<label>Description</label>
 							<textarea type ="text" className="form-control" onChange={this.descriptionChange} value={this.state.todoDescription}></textarea>
+						</div>
+						<div className={`error ${this.state.descriptionError ? '' : 'hide'}`}>
+							Please enter a description 500 characters or less
 						</div>
 
 						<div class="btn-group" role="group" aria-label="update options">
@@ -90,13 +98,19 @@ var ShowTodo = React.createClass({
 
 		if (props.title.length > 25 || props.title.length === 0) {
 
-			alert("Error in title");
+			this.setState({
+				titleError: true
+			});
+
 			return null;
 
 		} else if (props.description.length > 500 || props.description.length === 0) {
 
-			alert("Error in description");
-			return null
+			this.setState({
+				descriptionError: true
+			});
+
+			return null;
 			
 		} else {
 
