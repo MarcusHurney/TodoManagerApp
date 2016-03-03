@@ -115,8 +115,9 @@ var ShowTodo = React.createClass({
 		} else {
 
 			this.props.updateTodo(this.state.id, JSON.stringify(props)).then(() => {
-			alert("Todo updates should have been recieved in database");
-			// this.context.router.push('/todos_index');
+
+				this.props.history.pushState(null, '/todos_index');
+
 			});
 
 		}
@@ -126,10 +127,11 @@ var ShowTodo = React.createClass({
 	},
 
 	handleDeleteClick: function () {
-		console.log("Handle Delete Click Called!");
+
 		this.props.deleteTodo(this.state.id).then(() => {
-			// this.context.router.push('/todos_index');
-			alert("Now it would push back to todos index because you deleted the todo");
+
+			this.props.history.pushState(null, '/todos_index');
+			
 		});
 	},
 
