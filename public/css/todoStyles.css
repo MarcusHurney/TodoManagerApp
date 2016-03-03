@@ -65,11 +65,17 @@ body {
 
 #noTodosIndex p {
 	text-align: center;
-	font-size: 4.5em;
+	font-size: 3.5em;
 	font-weight: 100;
-	font-family: ‘Courier New’, Courier, monospace;
+	font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
 	line-height: 70px;
 	color: #600000;
+}
+
+#noTodosIndex h3 {
+	text-align: center;
+	font-family: 'Brush Script MT', cursive;
+	font-size: 4.5em;
 }
 
 #noTodosIndex a {

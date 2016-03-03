@@ -22,7 +22,8 @@ class TodosIndex extends Component {
 					    <div id="noTodosThumbnail" className="thumbnail">
 						    <Link to="/new_todo"><span id="firstTodoIcon" className="glyphicon glyphicon-copy"></span></Link>
 						    <div class="caption">
-						    	<p>Write your first todo item</p>
+						    	<p>Write your first</p>
+						    	<h3>Todo Item</h3>
 						    </div>
 					    </div>
 					  </div>
