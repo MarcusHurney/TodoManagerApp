@@ -14,11 +14,14 @@ class Login extends Component {
 	onSubmit(props) {
 		this.props.createUser(props).then(() => {
 				this.props.loginUser(props).then(() => {
-				//User has been created, navigate user to "/"
 				//We navigate by calling this.context.router.push with the new path for navigation
 				this.context.router.push('/todos_index');
+			}, () => {
+				alert("User couldn't be logged in");
 			});
-		})
+		}, (error) => {
+			alert("User could not be created");
+		});
 		
 	}
 

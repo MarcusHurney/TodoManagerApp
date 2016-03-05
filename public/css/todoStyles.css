@@ -55,6 +55,7 @@ body {
 	margin-top: 45px;
 	height: 600px;
 	width: 500px;
+	opacity: 0.9;
 }
 
 #firstTodoIcon {
@@ -116,6 +117,7 @@ body {
 	border-style: solid;
     border-width: 2.5px;
     border-color: #808080;
+    opacity: 0.9;
 }
 
 .btn-custom {

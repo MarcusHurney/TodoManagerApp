@@ -13,29 +13,40 @@ export function createUser(props) {
 
 	const request = axios.post(`/users`, props);
 
-	return {
-		type: CREATE_USER,
-		payload: request
-	};
+	return request.then((response) => {
+
+		return {
+			type: CREATE_USER,
+			payload: request
+		};
+
+	}, (response) => {
+		console.log("Error block in createUser has been reached.", response);
+		throw new Error(response);
+	});
+
+	
 }
 
 export function loginUser(props) {
 
 	const request = axios.post(`/users/login`, props);
 
-	request.then((response) => {
+	return request.then((response) => {
+
 		var token = response.headers.auth;
 		localStorage.setItem('token', token); //The user's token is taken from the reponse and set in local storage as 'token'
 		console.log('Token: ', localStorage.getItem('token'));
-	}, (response) => {
-		console.log("Error block in loginUser has been reached");
-		throw new Error(response.data.status);
-	});
 
-	return {
-		type: LOGIN_USER,
-		payload: request
-	};
+		return {
+			type: LOGIN_USER,
+			payload: request
+		};
+
+	}, (response) => {
+		console.log("Error block in loginUser has been reached", response);
+		throw new Error(response);
+	});
 
 }
 

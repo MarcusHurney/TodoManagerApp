@@ -10,7 +10,7 @@ class LoginHeader extends Component {
 
 	onSubmit(props) {
 		this.props.loginUser(props).then(() => {
-			//We navigate by calling this.context.router.push with the new path for navigation
+			//navigate by calling this.context.router.push with the new path for navigation
 			this.context.router.push('/todos_index');
 		}, (response) => {
 			alert("Error cannot log in ", response);
