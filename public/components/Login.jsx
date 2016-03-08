@@ -65,6 +65,7 @@ class Login extends Component {
 
 								<button type="submit" className="btn btn-custom">Sign Up</button>
 							</form>
+							
 						</div>	
 					</div>
 				</div>

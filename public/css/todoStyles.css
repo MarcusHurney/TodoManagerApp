@@ -6,11 +6,11 @@ body {
 }
 
 .masterContainer {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-weight: 400; 
 }
 
-/* LoginHeader Component */
+/* LoginHeader Component --------------------------------------------------------------------------------- */
 
 .navbar-brand {
 	float: left;
@@ -33,18 +33,31 @@ body {
 	height: 10px;
 }
 
+/* Login Component --------------------------------------------------------------------------------- */
+
 #topRow {
+	background-color: #FFE4C4;
+	opacity: 0.9;
 	margin-top: 185px;
+	border-radius: 10px;
+	padding-bottom: 40px;
+	border-style: solid;
+    border-width: 2.0px;
+    border-color: #600000;
 }
 
-#loginPage h1 {
-
-	font-weight: 325;
-	font-size: 250%;
+#topRow h1 {
+	font-weight: 650;
+	font-size: 275%;
 }
 
 #topRow input {
-	background-color: #FFE4C4;
+	border-color: #600000;
+}
+
+#topRow button {
+	background-color: #600000;
+	color: white;
 }
 
 #logoutHeader {
