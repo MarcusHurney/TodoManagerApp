@@ -1,4 +1,4 @@
-
+/* index.html --------------------------------------------------------------------------------- */
 body {
 	background-image: url(./crumpled.png);
 	background-repeat: no-repeat;
@@ -60,6 +60,8 @@ body {
 	color: white;
 }
 
+/* LogoutHeader Component --------------------------------------------------------------------------------- */
+
 #logoutHeader {
 	float: right;
 	margin: 10px 30px;
@@ -71,17 +73,15 @@ body {
 	cursor: pointer;
 }
 
+/* TodosIndex Component --------------------------------------------------------------------------------- */
+
+/* no todos -------------------------------------------- */
+
 #noTodosThumbnail {
 	margin-top: 45px;
 	height: 600px;
 	width: 500px;
 	opacity: 0.9;
-}
-
-#firstTodoIcon {
-	font-size: 18em;
-	color: #188EB5;
-	padding: 60px 75px 30px 95px;
 }
 
 #noTodosIndex p {
@@ -103,18 +103,14 @@ body {
 	cursor: pointer;
 }
 
-#newTodo input {
-	background-color: #FFE4C4;
+#firstTodoIcon {
+	font-size: 18em;
+	color: #188EB5;
+	padding: 60px 75px 30px 95px;
 }
-
-#newTodo textarea {
-	background-color: #FFE4C4;
-	height: 400px;
-}
-
 
 #addTodo {
-	margin-left: 12px;
+	margin-left: 20px;
 }
 
 #addBtn {
@@ -123,10 +119,7 @@ body {
 	cursor: pointer;
 }
 
-#btnBack {
-	width: 60px;
-	margin-top: 10px;
-}
+/* has todos -------------------------------------------- */
 
 .thumbnail {
 	height: auto;
@@ -138,11 +131,6 @@ body {
     border-width: 2.5px;
     border-color: #808080;
     opacity: 0.9;
-}
-
-.btn-custom {
-	background-color: #FFE4C4;
-	color: black;
 }
 
 .btnEdit {
@@ -188,17 +176,23 @@ body {
 	color: green;
 }
 
-#newTodo .glyphicon-plus {
-	color: green;
-	font-size: 1.4em;
-}
+/* NewTodo Component --------------------------------------------------------------------------------- */
 
 #newTodo button {
 	width: 50%;
 }
 
 #newTodo span {
-	font-size: font-size: 1.5em;
+	font-size: 1.5em;
+}
+
+#newTodo input {
+	background-color: #FFE4C4;
+}
+
+#newTodo textarea {
+	background-color: #FFE4C4;
+	height: 400px;
 }
 
 #newTodoCancel {
@@ -210,30 +204,22 @@ body {
 	float: right;
 }
 
+#btnBack {
+	width: 60px;
+	margin-top: 10px;
+}
+
+#newTodo .glyphicon-plus {
+	color: green;
+	font-size: 1.4em;
+}
+
+/* ShowTodo Component --------------------------------------------------------------------------------- */
+
 #showTodo div {
 	margin-top: 5px;
 	padding-left: 65px;
 	width: 600px;
-}
-
-#showTodo button {
-	width: 28%;
-	margin-top: 10px;
-	border-radius: 5px;
-}
-
-.error {
-	text-align: left;
-	font-size: 1.0em;
-	font-weight: 800;
-}
-
-#editTodoSave {
-	margin-right: 40px;
-}
-
-#editTodoRefresh {
-	margin-right: 40px;
 }
 
 #showTodo input {
@@ -245,9 +231,36 @@ body {
 	height: 400px;
 }
 
+#showTodo button {
+	width: 28%;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+
+#editTodoSave {
+	margin-right: 40px;
+}
+
+#editTodoRefresh {
+	margin-right: 40px;
+}
+
 #editTodoDelete span {
 	font-size: 1.5em;
 	color: red;
+}
+
+.error {
+	text-align: left;
+	font-size: 1.0em;
+	font-weight: 800;
+}
+
+/* classes --------------------------------------------------------------------------------- */
+
+.btn-custom {
+	background-color: #FFE4C4;
+	color: black;
 }
 
 .marginTop {
@@ -265,6 +278,3 @@ body {
 .bold {
 	font-weight: bold;
 }
-
-
-
