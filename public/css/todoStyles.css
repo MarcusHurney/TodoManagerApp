@@ -12,9 +12,12 @@ body {
 
 /* LoginHeader Component --------------------------------------------------------------------------------- */
 
+.navbar-header {
+	margin-left: 10px;
+}
+
 .navbar-brand {
-	float: left;
-	margin: 5px 0 5px 0;
+	margin: 5px 0 5px 10px !important;
 	padding-top: 10px;
 	color: #600000 !important;
 	font-size: 1.5em;
@@ -38,7 +41,7 @@ body {
 #topRow {
 	background-color: #FFE4C4;
 	opacity: 0.9;
-	margin-top: 185px;
+	margin-top: 200px;
 	border-radius: 10px;
 	padding-bottom: 40px;
 	border-style: solid;

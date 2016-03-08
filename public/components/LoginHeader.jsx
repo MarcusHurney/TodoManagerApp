@@ -28,7 +28,7 @@ class LoginHeader extends Component {
 
 				<div className="navbar navbar-default navbar-fixed-top">
 
-					<div className="container">
+					<div className="container-fluid">
 
 						<div className="navbar-header">
 
@@ -37,6 +37,7 @@ class LoginHeader extends Component {
 				            <span className="icon-bar"></span>
 				            <span className="icon-bar"></span>
 				          </button>
+				          
 				          <a className="navbar-brand">Todo Manager</a>
 
 			        	</div>
