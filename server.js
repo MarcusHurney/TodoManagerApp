@@ -7,8 +7,6 @@ var middleware = require('./middleware.js')(db); // db specifies the database mi
 
 var app = express();
 const PORT = process.env.PORT || 3000;
-var todos = [];
-var todoNextId = 1;
 
 app.use(bodyParser.json());
 
