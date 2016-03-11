@@ -241,7 +241,7 @@ app.delete('/users/login', middleware.requireAuthentication, function (req, res)
 
 // Sync with sequelize database using the imported db.js
 
-db.sequelize.sync({force:true}).then(function () {
+db.sequelize.sync().then(function () {
 
 	app.listen(PORT, function () {
 		console.log('Express listening on port ' + PORT + '!');
