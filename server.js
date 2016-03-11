@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt');
 var middleware = require('./middleware.js')(db); // db specifies the database middleware.js will use, so it's passed as an argument
 
 var app = express();
-const PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
